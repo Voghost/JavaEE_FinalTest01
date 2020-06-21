@@ -1,4 +1,4 @@
-# javaEE础  最终实验（实验5)
+# javaEE基础  最终实验（实验5)
 ## 说明:
 * 这个一个设计公司的人员管理、项目管理的系统
 ## 1. 需求分析
@@ -31,31 +31,37 @@
 
 ### 1.2 基本数据库
 #### 1.2.1 员工表
-* 员工的编号 varchar(6) [A-Z][A-Z][0-9][0-9][0-9][0-9]
+* 员工的编号 char(6) [A-Z][A-Z][0-9][0-9][0-9][0-9]
 * 员工的姓名 varchar(15)
 * 员工的电话 varchar(11) [0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]
 * 员工所属部门编号 varchar(3) [0-9][0-9][0-9]
 * 员工私人文件夹的编号 varchar(10) [A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]
 
 #### 1.2.2 部门表
-* 部门编号 varchar(3) [0-9][0-9][0-9]
+* 部门编号 char(3) [0-9][0-9][0-9]
 * 部门的名字 varchar(30)
 * 部门所属的城市 varchar(30)
 
 #### 1.2.3 项目表
-* 项目编号 varchar(8) [0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]
-* 项目名字 varchar(15)
+* 项目编号 char(8) [0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]
+* 项目名字 varchar(30)
+* 项目描述 varchar(45)
 * 项目文件夹的编号 varchar(10) [A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]
+* 项目状态 BIT
 
 #### 1.2.4 文件路径表
-* 文件夹的编号 varchar(10) [A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]
+* 文件夹的编号 char(10) [A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]
 * 文件夹的名称 varchar(10)
 * 文件夹的路径 varchar(30)
 
 #### 1.2.5 任务表
-* 任务序号 varchar() [][][][][]
-* 具体任务描述
-* 任务待完成日期
+* 任务序号 char() [0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]
+* 任务名字 varchar(30)
+* 具体任务描述 varchar(45)
+* 任务开始时间 DATE
+* 任务结束时间 DATE
+* 任务状态 BIT
+
 
 #### 1.2.6 员工-部门表
 
@@ -75,27 +81,149 @@
 * 一个员工对应一个共享文件夹
 
 #### 具体表的语句
-##### (1) 员工表
+##### (1) 员工表 (Staff)
 ```sql
-CREATE TABLE `BusinessManagement`.`Staff`  (
+CREATE TABLE Staff  (
 		`StaffId` varchar(6) NOT NULL CHECK(StaffId LIKE '[A-Z][A-Z][0-9][0-9][0-9][0-9]'),
 		`StaffName` varchar(40) NULL ,
 		`StaffPhone` varchar(15) NULL,
-		`StafFileId` varchar(10) NULL CHECK(StafFileId LIKE '[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+		`StafFileId` char(10) NULL CHECK(StafFileId LIKE '[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+		`StaffPassword` varchar(15) NOT NULL ,
 		PRIMARY KEY (`StaffId`)
 		);
 ```
-|    列名    |     类型    | 是否主键 | 是否外键 |       备注       |
-|:----------:|:-----------:|:--------:|:--------:|:----------------:|
-|   StaffId  | vharchar(6) |    是    |    否    |      员工id      |
-|  StaffName | varchar(40) |    否    |    否    |      员工名      |
-| StaffPhone | varchar(15) |    否    |    否    |     员工电话     |
-| StafFileId | varchar(10) |    否    |    是    | 员工所属文件编号 |
+|      列名     |     类型    | 是否主键 | 是否外键 |       备注       |
+|:-------------:|:-----------:|:--------:|:--------:|:----------------:|
+|    StaffId    |   char(6)   |    是    |    否    |      员工id      |
+|   StaffName   | varchar(40) |    否    |    否    |      员工名      |
+|   StaffPhone  | varchar(15) |    否    |    否    |     员工电话     |
+|   StafFileId  | varchar(10) |    否    |    是    | 员工所属文件编号 |
+| StaffPassword | varchar(15) |    否    |    否    |     员工密码     |
+
+##### (2) 部门表(DepartmentId)
+```sql
+CREATE TABLE DepartmentId  (
+`DepartmentId` char(3) NOT NULL CHECK(DepartmentId LIKE '[0-9][0-9][0-9]'),
+  `DepartmentName` varchar(40) NULL,
+  `DepartmentAddress` varchar(40) NULL,
+  PRIMARY KEY (`DepartmentId`)
+)
+```
+
+|        列名       |     类型    | 是否主键 | 是否外键 |   备注   |
+|:-----------------:|:-----------:|:--------:|:--------:|:--------:|
+|    DepartmentId   |   char(3)   |    是    |    否    | 部门编号 |
+|   DepartmentName  | varchar(40) |    否    |    否    | 部门名称 |
+| DepartmentAddress | varchar(40) |    否    |    否    | 部门地址 |
 
 
-#### (2) 部门表
+
+##### (3) 目录表(Folder)
+```sql
+CREATE TABLE Folder  (
+  `FolderId` char(10) NOT NULL CHECK(FolderId LIKE '[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+  `FolderPath` varchar(30) NULL,
+  `FolderRemark` varchar(45) NULL,
+  PRIMARY KEY (`FolderId`)
+)
+```
+
+|     列名     |     类型    | 是否主键 | 是否外键 |   备注   |
+|:------------:|:-----------:|:--------:|:--------:|:--------:|
+|   FolderId   |   char(10)  |    是    |    否    | 目录编号 |
+|  FolderPath  | varchar(30) |    否    |    否    | 目录路径 |
+| FolderRemark | varchar(45) |    否    |    否    | 目录备注 |
+
+##### (4) 项目表 (Project)
+```sql
+CREATE TABLE Project  (
+  `ProjectId` char(10) NOT NULL CHECK(ProjectId LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9])'),
+  `ProjectName` varchar(30) NULL,
+  `ProjectPathId` char(10) NULL CHECK(ProjectPathId LIKE '[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]' ),
+  `ProjectRemark` varchar(45) NULL,
+  PRIMARY KEY (`ProjectId`),
+)
+```
+
+|      列名     |     类型    | 是否主键 | 是否外键 |        备注        |
+|:-------------:|:-----------:|:--------:|:--------:|:------------------:|
+|   ProjectId   |   char(10)  |    是    |    否    |      项目编号      |
+|  ProjectName  | varchar(30) |    否    |    否    |       项目名       |
+| ProjectPathId | varchar(30) |    否    |    是    |      项目路径      |
+| ProjectRemark | varchar(45) |    否    |    否    |      项目备注      |
+| ProjectStatus |     BIT     |    否    |    否    | 项目状态(是否完结) |
 
 
-| 列名 | 类型 | 是否主键 | 是否外键 | 备注 |
-|:----:|:----:|:--------:|:--------:|:----:|
-|
+##### (5) 任务表(Task)
+```sql
+CREATE TABLE task(
+`TaskId` char(10) NOT NULL CHECK(TaskId LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+  `TaskName` varchar(30) NULL,
+  `TaskRemark` varchar(45) NULL,
+  `TaskStartDate` DATE NULL,
+  `TaskEndDate` DATE NULL,
+  PRIMARY KEY (`TaskId`),
+);
+```
+|      列名     |     类型    | 是否主键 | 是否外键 |        备注        |
+|:-------------:|:-----------:|:--------:|:--------:|:------------------:|
+|     TaskId    |   char(10)  |    是    |    否    |       任务ID       |
+|    TaskName   | varchar(30) |    否    |    否    |       任务名       |
+|   TaskRemark  | varchar(45) |    否    |    否    |      任务描述      |
+| TaskStartDate |     DATE    |    否    |    否    |      开始时间      |
+|  TaskEndDate  |     DATE    |    否    |    否    |      结束时间      |
+
+
+##### (6) 员工-部门表 (Staff_Department)
+```sql
+CREATE TABLE Staff_Department(
+  `StaffId` char(6) NOT NULL,
+  `DepartmentId` char(10) NOT NULL,
+  PRIMARY KEY (`StaffId`, `DepartmentId`),
+  CONSTRAINT `FK_SD_StaffId` FOREIGN KEY (`StaffId`) REFERENCES `business_management`.`staff` (`StaffId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_SD_Department` FOREIGN KEY (`DepartmentId`) REFERENCES `business_management`.`departmentid` (`DepartmentId`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+```
+|     列名     |   类型   | 是否主键 | 是否外键 |   备注   |
+|:------------:|:--------:|:--------:|:--------:|:--------:|
+|    StaffId   |  char(6) |    是    |    是    | 员工编号 |
+| DepartmentId | char(10) |    是    |    是    | 部门编号 |
+
+##### (7) 员工-项目表 (Staff_Project)
+```sql
+CREATE TABLE Staff_Project (
+  `StaffId` char(6) NOT NULL,
+  `ProjectId` char(10) NOT NULL,
+  `ProjectStatus` BIT NULL,
+  PRIMARY KEY (`StaffId`, `ProjectId`),
+  CONSTRAINT `FK_SP_StaffId` FOREIGN KEY (`StaffId`) REFERENCES `business_management`.`staff` (`StaffId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_SP_ProjectId` FOREIGN KEY (`ProjectId`) REFERENCES `business_management`.`project` (`ProjectId`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+```
+
+|      列名     |   类型   | 是否主键 | 是否外键 |        备注        |
+|:-------------:|:--------:|:--------:|:--------:|:------------------:|
+|    StaffId    |  char(6) |    是    |    是    |      员工编号      |
+|   ProjectId   | char(10) |    是    |    是    |      部门编号      |
+| ProjectStatus |    BIT   |    否    |    否    | 项目状态(是否完结) |
+
+
+##### (8) 员工-任务表 (Staff_Task)
+```sql
+CREATE TABLE Staff_Task (
+  `StaffId` char(6) NOT NULL,
+  `TaskId` char(10) NOT NULL,
+  `TaskStatus` BIT,
+  PRIMARY KEY (`StaffId`, `TaskId`),
+  CONSTRAINT `FK_ST_StaffId` FOREIGN KEY (`StaffId`) REFERENCES `business_management`.`staff` (`StaffId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_ST_TaskId` FOREIGN KEY (`TaskId`) REFERENCES `business_management`.`task` (`TaskId`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+```
+|    列名    |   类型   | 是否主键 | 是否外键 |        备注        |
+|:----------:|:--------:|:--------:|:--------:|:------------------:|
+|   StaffId  |  char(6) |    是    |    是    |      员工编号      |
+|   TaskId   | char(10) |    是    |    是    |      部门编号      |
+| TaskStatus |    BIT   |    否    |    否    | 任务状态(是否完结) |
+
+
