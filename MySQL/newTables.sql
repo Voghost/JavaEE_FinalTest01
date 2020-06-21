@@ -1,5 +1,5 @@
 CREATE TABLE Staff (
-	`StaffId` VARCHAR ( 6 ) NOT NULL CHECK ( StaffId LIKE '[A-Z][A-Z][0-9][0-9][0-9][0-9]' ),
+	`StaffId` CHAR ( 6 ) NOT NULL CHECK ( StaffId LIKE '[A-Z][A-Z][0-9][0-9][0-9][0-9]' ),
 	`StaffName` VARCHAR ( 40 ) NULL,
 	`StaffPhone` VARCHAR ( 15 ) NULL,
 	`StafFileId` CHAR ( 10 ) NULL CHECK ( StafFileId LIKE '[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]' ),

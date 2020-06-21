@@ -84,7 +84,7 @@
 ##### (1) 员工表 (Staff)
 ```sql
 CREATE TABLE Staff  (
-		`StaffId` varchar(6) NOT NULL CHECK(StaffId LIKE '[A-Z][A-Z][0-9][0-9][0-9][0-9]'),
+		`StaffId` char(6) NOT NULL CHECK(StaffId LIKE '[A-Z][A-Z][0-9][0-9][0-9][0-9]'),
 		`StaffName` varchar(40) NULL ,
 		`StaffPhone` varchar(15) NULL,
 		`StafFileId` char(10) NULL CHECK(StafFileId LIKE '[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
