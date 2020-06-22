@@ -112,7 +112,7 @@ CREATE TABLE DepartmentId  (
 
 |        列名       |     类型    | 是否主键 | 是否外键 |   备注   |
 |:-----------------:|:-----------:|:--------:|:--------:|:--------:|
-|    DepartmentId   |   char(3)   |    是    |    否    | 部门编号 |
+|    DepartmentId   |   char(4)   |    是    |    否    | 部门编号 |
 |   DepartmentName  | varchar(40) |    否    |    否    | 部门名称 |
 | DepartmentAddress | varchar(40) |    否    |    否    | 部门地址 |
 
@@ -130,7 +130,7 @@ CREATE TABLE Folder  (
 
 |     列名     |     类型    | 是否主键 | 是否外键 |   备注   |
 |:------------:|:-----------:|:--------:|:--------:|:--------:|
-|   FolderId   |   char(10)  |    是    |    否    | 目录编号 |
+|   FolderId   |   char(9)  |    是    |    否    | 目录编号 |
 |  FolderPath  | varchar(30) |    否    |    否    | 目录路径 |
 | FolderRemark | varchar(45) |    否    |    否    | 目录备注 |
 
@@ -147,7 +147,7 @@ CREATE TABLE Project  (
 
 |      列名     |     类型    | 是否主键 | 是否外键 |        备注        |
 |:-------------:|:-----------:|:--------:|:--------:|:------------------:|
-|   ProjectId   |   char(10)  |    是    |    否    |      项目编号      |
+|   ProjectId   |   char(9)  |    是    |    否    |      项目编号      |
 |  ProjectName  | varchar(30) |    否    |    否    |       项目名       |
 | ProjectPathId | varchar(30) |    否    |    是    |      项目路径      |
 | ProjectRemark | varchar(45) |    否    |    否    |      项目备注      |
@@ -167,7 +167,7 @@ CREATE TABLE task(
 ```
 |      列名     |     类型    | 是否主键 | 是否外键 |        备注        |
 |:-------------:|:-----------:|:--------:|:--------:|:------------------:|
-|     TaskId    |   char(10)  |    是    |    否    |       任务ID       |
+|     TaskId    |   char(9)  |    是    |    否    |       任务ID       |
 |    TaskName   | varchar(30) |    否    |    否    |       任务名       |
 |   TaskRemark  | varchar(45) |    否    |    否    |      任务描述      |
 | TaskStartDate |     DATE    |    否    |    否    |      开始时间      |
@@ -204,7 +204,7 @@ CREATE TABLE Staff_Project (
 |      列名     |   类型   | 是否主键 | 是否外键 |        备注        |
 |:-------------:|:--------:|:--------:|:--------:|:------------------:|
 |    StaffId    |  char(6) |    是    |    是    |      员工编号      |
-|   ProjectId   | char(10) |    是    |    是    |      部门编号      |
+|   ProjectId   | char(9) |    是    |    是    |      部门编号      |
 | ProjectStatus |    BIT   |    否    |    否    | 项目状态(是否完结) |
 
 
@@ -223,7 +223,7 @@ CREATE TABLE Staff_Task (
 |    列名    |   类型   | 是否主键 | 是否外键 |        备注        |
 |:----------:|:--------:|:--------:|:--------:|:------------------:|
 |   StaffId  |  char(6) |    是    |    是    |      员工编号      |
-|   TaskId   | char(10) |    是    |    是    |      部门编号      |
+|   TaskId   | char(9) |    是    |    是    |      部门编号      |
 | TaskStatus |    BIT   |    否    |    否    | 任务状态(是否完结) |
 
 
