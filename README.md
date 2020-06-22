@@ -100,7 +100,7 @@ CREATE TABLE Staff  (
 |   StafFileId  | varchar(10) |    否    |    是    | 员工所属文件编号 |
 | StaffPassword | varchar(15) |    否    |    否    |     员工密码     |
 
-##### (2) 部门表(DepartmentId)
+##### (2) 部门表(Department)
 ```sql
 CREATE TABLE DepartmentId  (
 `DepartmentId` char(3) NOT NULL CHECK(DepartmentId LIKE '[0-9][0-9][0-9]'),
