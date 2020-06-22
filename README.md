@@ -227,110 +227,125 @@ CREATE TABLE Staff_Task (
 | TaskStatus |    BIT   |    否    |    否    | 任务状态(是否完结) |
 
 ### 1.3 数据库功能设计 （数据库功能类 DatabaseProcess）
-#### 1.3.1 插入员工（insertStaff）
+#### 1.3.1 员工数据库操作(数据库-员工类 DatabaseStaff)
+* 插入员工（insertStaff）
 ```java
 public int insertStaff(StaffInfo staffInfo);
 ```
-#### 1.3.2 修改员工数据（updateStaff）
+* 修改员工数据（updateStaff）
 ```java
 public int updateStaff(StaffInfo staffInfo);
 ```
-
-#### 1.3.3 删除员工数据(deleteStaff)
+*  删除员工数据(deleteStaff)
 ```java
 public int deleteStaff();
 ```
-
-#### 1.3.4 查找员工(searchStaff)
+* 查找员工(searchStaff)
 ```java
-public StaffInfo[] searchStaff(String key,int paramNo); 
-```
-#### 1.3.5 给员工分配任务(assigningTask)
-```java
-public int assigningTask(String staffId,TaskInfo taskId);
+public StaffInfo[] searchStaff(String key,int paramNo); //通过关键字寻找员工
 ```
 
-#### 1.3.6 增加部门(insertDepartment)
+
+#### 1.3.2 部门的数据库操作(数据库-部门DatabaseDepartment)
+* 插入部门(insertDepartment)
 ```java
 public int insertDepartment(DepartmentInfo departmentInfo);
 ```
 
-#### 1.3.7 删除部门(deleteDepartment)
+* 删除部门(deleteDepartment)
 ```java
 public int deleteDepartment(String departmentId);
 ```
 
-#### 1.3.8 修改部门信息(updateDepartment)
+* 修改部门信息(updateDepartment)
 ```java
 public int updateDepartment(DepartmentInfo departmentInfo);
 ```
 
-#### 1.3.9 分配部门(assignDepartment)
+* 分配部门(assignDepartment)
 ```java
-public int assignDepartment(String staffId,String departmentId);
+public int assignDepartmentForStaff(String staffId,String departmentId);
+```
+* 查找部门(searchDepartment)
+```java
+public int searchDepartment(String key,int paramNo);//通过关键字寻找部门
 ```
 
-#### 1.3.10 创建项目(insertProject)
+
+#### 1.3.3 项目的数据库操作(数据库-项目管理 *)
+* 创建项目(insertProject)
 ```java
 public int insertProject(ProjectInfo projectInfo);
 ```
 
-#### 1.3.11 修改项目(updateProject)
+* 修改项目(updateProject)
 ```java
 public int updateProject(ProjectInfo projectInfo);
 ```
 
-#### 1.3.12 删除项目(deleteProject)
+* 删除项目(deleteProject)
 ```java
 public int deleteProject(String projectId);
 ```
 
-#### 1.3.13 分配项目(assignProject)
+* 分配项目(assignProject)
 ```java
 public int assignProject(String projectId);
 ```
 
-#### 1.3.14 新建任务(insertTask)
+* 查找项目(searchDepartment)
+```java
+public int searchDepartment(String key,int paramNo);//通过关键字寻找部门
+```
+
+#### 1.3.4 任务的数据库操作(任务-数据库操作类 DatabaseTask)
+* 新建任务(insertTask)
 ```java
 public int insertTask(TaskInfo taskInfo);
 ```
 
-#### 1.3.15 修改任务(updateTask)
+* 修改任务(updateTask)
 ```java
 public int updateTask(TaskInfo taskInfo);
 ```
 
-#### 1.3.16 删除任务(deleteTask)
+* 删除任务(deleteTask)
 ```java
 public int deleteTask(String taskId);
 ```
 
-#### 1.3.17 员工查看任务(searchTask)
+* 给员工分配任务(assigngTask)
 ```java
-public int searchTask(String staffId);
+public int assignTask(String staffId,TaskInfo taskId);
 ```
 
-#### 1.3.18 新建文件目录(insertFolder)
+* 查找任务(searchTask)
+```java
+public int searchTask(String key,int paramNO);
+```
+
+#### 1.3.5 文件夹数据库操作()
+* 新建文件目录(insertFolder)
 ```java
 public int insertFolder(FolderInfo folderInfo);
 ```
 
-#### 1.3.19 修改文件目录(updateFolder)
+* 修改文件目录(updateFolder)
 ```java
 public int updateFolder(FolderInfo folderInfo);
 ```
 
-#### 1.3.20 删除文件目录(deleteFolder)
+* 删除文件目录(deleteFolder)
 ```java
 public int deleteFolder(String folderId);
 ```
 
-#### 1.3.21 给项目分配文件目录(assignFolderForProject)
+* 给项目分配文件目录(assignFolderForProject)
 ```java
 public int assignFolderForProject(String folderId,String projectId);
 ```
 
-#### 1.3.22 给员工分配文件目录(assignFolderForStaff)
+* 给员工分配文件目录(assignFolderForStaff)
 ```java
 public int assignFolderForStaff(String folder,String staffId);
 ```
