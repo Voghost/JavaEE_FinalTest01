@@ -6,7 +6,7 @@ CREATE TABLE Staff (
 	`StaffPassword` VARCHAR ( 15 ) NOT NULL,
 	PRIMARY KEY ( `StaffId` )
 );
-CREATE TABLE DepartmentId (
+CREATE TABLE Department (
 	`DepartmentId` CHAR ( 3 ) NOT NULL CHECK ( DepartmentId LIKE '[0-9][0-9][0-9]' ),
 	`DepartmentName` VARCHAR ( 40 ) NULL,
 	`DepartmentAddress` VARCHAR ( 40 ) NULL,
@@ -39,7 +39,7 @@ PRIMARY KEY ( `ProjectId` )
 		`DepartmentId` char(10) NOT NULL,
 		PRIMARY KEY (`StaffId`, `DepartmentId`),
 		CONSTRAINT `FK_SD_StaffId` FOREIGN KEY (`StaffId`) REFERENCES `business_management`.`staff` (`StaffId`) ON DELETE CASCADE ON UPDATE CASCADE,
-		CONSTRAINT `FK_SD_Department` FOREIGN KEY (`DepartmentId`) REFERENCES `business_management`.`departmentid` (`DepartmentId`) ON DELETE CASCADE ON UPDATE CASCADE
+		CONSTRAINT `FK_SD_Department` FOREIGN KEY (`DepartmentId`) REFERENCES `business_management`.`department` (`DepartmentId`) ON DELETE CASCADE ON UPDATE CASCADE
 	);
 
 	CREATE TABLE Staff_Project (
@@ -60,3 +60,10 @@ PRIMARY KEY ( `ProjectId` )
 		CONSTRAINT `FK_ST_TaskId` FOREIGN KEY (`TaskId`) REFERENCES `business_management`.`task` (`TaskId`) ON DELETE CASCADE ON UPDATE CASCADE
 	);
 
+	-- 添加外键
+	ALTER TABLE `business_management`.`staff`
+	ADD CONSTRAINT `FK_Staff_FileId` FOREIGN KEY (`StafFileId`) REFERENCES `business_management`.`folder` (`FolderId`);
+
+
+	ALTER TABLE `business_management`.`project`
+	ADD CONSTRAINT `FK_Project_FileId` FOREIGN KEY (`ProjectPathId`) REFERENCES `business_management`.`folder` (`FolderId`);
