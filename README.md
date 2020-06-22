@@ -84,10 +84,10 @@
 ##### (1) 员工表 (Staff)
 ```sql
 CREATE TABLE Staff  (
-		`StaffId` char(6) NOT NULL CHECK(StaffId LIKE '[A-Z][A-Z][0-9][0-9][0-9][0-9]'),
+		`StaffId` char(6) NOT NULL CHECK(StaffId LIKE 'S[0-9][0-9][0-9][0-9][0-9]'),
 		`StaffName` varchar(40) NULL ,
 		`StaffPhone` varchar(15) NULL,
-		`StafFileId` char(10) NULL CHECK(StafFileId LIKE '[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+		`StafFileId` char(9) NULL CHECK(StafFileId LIKE 'F[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
 		`StaffPassword` varchar(15) NOT NULL ,
 		PRIMARY KEY (`StaffId`)
 		);
@@ -103,7 +103,7 @@ CREATE TABLE Staff  (
 ##### (2) 部门表(Department)
 ```sql
 CREATE TABLE DepartmentId  (
-`DepartmentId` char(3) NOT NULL CHECK(DepartmentId LIKE '[0-9][0-9][0-9]'),
+`DepartmentId` char(4) NOT NULL CHECK(DepartmentId LIKE 'D[0-9][0-9][0-9]'),
   `DepartmentName` varchar(40) NULL,
   `DepartmentAddress` varchar(40) NULL,
   PRIMARY KEY (`DepartmentId`)
@@ -121,7 +121,7 @@ CREATE TABLE DepartmentId  (
 ##### (3) 目录表(Folder)
 ```sql
 CREATE TABLE Folder  (
-  `FolderId` char(10) NOT NULL CHECK(FolderId LIKE '[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+  `FolderId` char(9) NOT NULL CHECK(FolderId LIKE 'F[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
   `FolderPath` varchar(30) NULL,
   `FolderRemark` varchar(45) NULL,
   PRIMARY KEY (`FolderId`)
@@ -137,11 +137,11 @@ CREATE TABLE Folder  (
 ##### (4) 项目表 (Project)
 ```sql
 CREATE TABLE Project  (
-  `ProjectId` char(10) NOT NULL CHECK(ProjectId LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9])'),
+  `ProjectId` char(9) NOT NULL CHECK(ProjectId LIKE 'P[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9])'),
   `ProjectName` varchar(30) NULL,
-  `ProjectPathId` char(10) NULL CHECK(ProjectPathId LIKE '[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]' ),
+  `ProjectPathId` char(9) NULL CHECK(ProjectPathId LIKE 'F[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]' ),
   `ProjectRemark` varchar(45) NULL,
-  PRIMARY KEY (`ProjectId`),
+  PRIMARY KEY (`ProjectId`)
 )
 ```
 
@@ -157,12 +157,12 @@ CREATE TABLE Project  (
 ##### (5) 任务表(Task)
 ```sql
 CREATE TABLE task(
-`TaskId` char(10) NOT NULL CHECK(TaskId LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+`TaskId` char(9) NOT NULL CHECK(TaskId LIKE 'T[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
   `TaskName` varchar(30) NULL,
   `TaskRemark` varchar(45) NULL,
   `TaskStartDate` DATE NULL,
   `TaskEndDate` DATE NULL,
-  PRIMARY KEY (`TaskId`),
+  PRIMARY KEY (`TaskId`)
 );
 ```
 |      列名     |     类型    | 是否主键 | 是否外键 |        备注        |
@@ -178,7 +178,7 @@ CREATE TABLE task(
 ```sql
 CREATE TABLE Staff_Department(
   `StaffId` char(6) NOT NULL,
-  `DepartmentId` char(10) NOT NULL,
+  `DepartmentId` char(4) NOT NULL,
   PRIMARY KEY (`StaffId`, `DepartmentId`),
   CONSTRAINT `FK_SD_StaffId` FOREIGN KEY (`StaffId`) REFERENCES `business_management`.`staff` (`StaffId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_SD_Department` FOREIGN KEY (`DepartmentId`) REFERENCES `business_management`.`departmentid` (`DepartmentId`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -193,7 +193,7 @@ CREATE TABLE Staff_Department(
 ```sql
 CREATE TABLE Staff_Project (
   `StaffId` char(6) NOT NULL,
-  `ProjectId` char(10) NOT NULL,
+  `ProjectId` char(11) NOT NULL,
   `ProjectStatus` BIT NULL,
   PRIMARY KEY (`StaffId`, `ProjectId`),
   CONSTRAINT `FK_SP_StaffId` FOREIGN KEY (`StaffId`) REFERENCES `business_management`.`staff` (`StaffId`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -212,7 +212,7 @@ CREATE TABLE Staff_Project (
 ```sql
 CREATE TABLE Staff_Task (
   `StaffId` char(6) NOT NULL,
-  `TaskId` char(10) NOT NULL,
+  `TaskId` char(9) NOT NULL,
   `TaskStatus` BIT,
   PRIMARY KEY (`StaffId`, `TaskId`),
   CONSTRAINT `FK_ST_StaffId` FOREIGN KEY (`StaffId`) REFERENCES `business_management`.`staff` (`StaffId`) ON DELETE CASCADE ON UPDATE CASCADE,

@@ -1,69 +1,62 @@
 CREATE TABLE Staff (
-	`StaffId` CHAR ( 6 ) NOT NULL CHECK ( StaffId LIKE '[A-Z][A-Z][0-9][0-9][0-9][0-9]' ),
+	`StaffId` CHAR ( 6 ) NOT NULL CHECK ( StaffId LIKE 'S[0-9][0-9][0-9][0-9][0-9]' ),
 	`StaffName` VARCHAR ( 40 ) NULL,
 	`StaffPhone` VARCHAR ( 15 ) NULL,
-	`StafFileId` CHAR ( 10 ) NULL CHECK ( StafFileId LIKE '[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]' ),
+	`StafFileId` CHAR ( 9 ) NULL CHECK ( StafFileId LIKE 'F[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]' ),
 	`StaffPassword` VARCHAR ( 15 ) NOT NULL,
-	PRIMARY KEY ( `StaffId` )
+	PRIMARY KEY ( `StaffId` ) 
 );
-CREATE TABLE Department (
-	`DepartmentId` CHAR ( 3 ) NOT NULL CHECK ( DepartmentId LIKE '[0-9][0-9][0-9]' ),
+CREATE TABLE DepartmentId (
+	`DepartmentId` CHAR ( 4 ) NOT NULL CHECK ( DepartmentId LIKE 'D[0-9][0-9][0-9]' ),
 	`DepartmentName` VARCHAR ( 40 ) NULL,
 	`DepartmentAddress` VARCHAR ( 40 ) NULL,
-	PRIMARY KEY ( `DepartmentId` )
+	PRIMARY KEY ( `DepartmentId` ) 
 );
 CREATE TABLE Folder (
-	`FolderId` CHAR ( 10 ) NOT NULL CHECK ( FolderId LIKE '[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]' ),
+	`FolderId` CHAR ( 9 ) NOT NULL CHECK ( FolderId LIKE 'F[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]' ),
 	`FolderPath` VARCHAR ( 30 ) NULL,
 	`FolderRemark` VARCHAR ( 45 ) NULL,
-	PRIMARY KEY ( `FolderId` )
+	PRIMARY KEY ( `FolderId` ) 
 );
 CREATE TABLE Project (
-	`ProjectId` CHAR ( 10 ) NOT NULL CHECK (ProjectId LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9])'),
-`ProjectName` VARCHAR ( 30 ) NULL,
-`ProjectPathId` CHAR ( 10 ) NULL CHECK ( ProjectPathId LIKE '[A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]' ),
-`ProjectRemark` VARCHAR ( 45 ) NULL,
-PRIMARY KEY ( `ProjectId` )
-	);
-	CREATE TABLE task (
-		`TaskId` CHAR ( 10 ) NOT NULL CHECK ( TaskId LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]' ),
-		`TaskName` VARCHAR ( 30 ) NULL,
-		`TaskRemark` VARCHAR ( 45 ) NULL,
-		`TaskStartDate` DATE NULL,
-		`TaskEndDate` DATE NULL,
-		PRIMARY KEY ( `TaskId` )
-	);
-
-	CREATE TABLE Staff_Department(
-		`StaffId` char(6) NOT NULL,
-		`DepartmentId` char(10) NOT NULL,
-		PRIMARY KEY (`StaffId`, `DepartmentId`),
-		CONSTRAINT `FK_SD_StaffId` FOREIGN KEY (`StaffId`) REFERENCES `business_management`.`staff` (`StaffId`) ON DELETE CASCADE ON UPDATE CASCADE,
-		CONSTRAINT `FK_SD_Department` FOREIGN KEY (`DepartmentId`) REFERENCES `business_management`.`department` (`DepartmentId`) ON DELETE CASCADE ON UPDATE CASCADE
-	);
-
-	CREATE TABLE Staff_Project (
-		`StaffId` char(6) NOT NULL,
-		`ProjectId` char(10) NOT NULL,
-		`ProjectStatus` BIT NULL,
-		PRIMARY KEY (`StaffId`, `ProjectId`),
-		CONSTRAINT `FK_SP_StaffId` FOREIGN KEY (`StaffId`) REFERENCES `business_management`.`staff` (`StaffId`) ON DELETE CASCADE ON UPDATE CASCADE,
-		CONSTRAINT `FK_SP_ProjectId` FOREIGN KEY (`ProjectId`) REFERENCES `business_management`.`project` (`ProjectId`) ON DELETE CASCADE ON UPDATE CASCADE
-	);
-
-	CREATE TABLE Staff_Task (
-		`StaffId` char(6) NOT NULL,
-		`TaskId` char(10) NOT NULL,
-		`TaskStatus` BIT,
-		PRIMARY KEY (`StaffId`, `TaskId`),
-		CONSTRAINT `FK_ST_StaffId` FOREIGN KEY (`StaffId`) REFERENCES `business_management`.`staff` (`StaffId`) ON DELETE CASCADE ON UPDATE CASCADE,
-		CONSTRAINT `FK_ST_TaskId` FOREIGN KEY (`TaskId`) REFERENCES `business_management`.`task` (`TaskId`) ON DELETE CASCADE ON UPDATE CASCADE
-	);
-
-	-- 添加外键
-	ALTER TABLE `business_management`.`staff`
-	ADD CONSTRAINT `FK_Staff_FileId` FOREIGN KEY (`StafFileId`) REFERENCES `business_management`.`folder` (`FolderId`);
-
-
-	ALTER TABLE `business_management`.`project`
-	ADD CONSTRAINT `FK_Project_FileId` FOREIGN KEY (`ProjectPathId`) REFERENCES `business_management`.`folder` (`FolderId`);
+	`ProjectId` CHAR ( 9 ) NOT NULL CHECK ( ProjectId LIKE 'P[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9])' ),
+	`ProjectName` VARCHAR ( 30 ) NULL,
+	`ProjectPathId` CHAR ( 9 ) NULL CHECK ( ProjectPathId LIKE 'F[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+	`ProjectRemark` VARCHAR ( 45 ) NULL,
+	PRIMARY KEY ( `ProjectId` )
+	
+);
+CREATE TABLE task (
+	`TaskId` CHAR ( 9 ) NOT NULL CHECK ( TaskId LIKE 'T[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]' ),
+	`TaskName` VARCHAR ( 30 ) NULL,
+	`TaskRemark` VARCHAR ( 45 ) NULL,
+	`TaskStartDate` DATE NULL,
+	`TaskEndDate` DATE NULL,
+	PRIMARY KEY ( `TaskId` )
+	
+);
+CREATE TABLE Staff_Department (
+	`StaffId` CHAR ( 6 ) NOT NULL,
+	`DepartmentId` CHAR ( 4 ) NOT NULL,
+	PRIMARY KEY ( `StaffId`, `DepartmentId` ),
+	CONSTRAINT `FK_SD_StaffId` FOREIGN KEY ( `StaffId` ) REFERENCES `business_management`.`staff` ( `StaffId` ) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT `FK_SD_Department` FOREIGN KEY ( `DepartmentId` ) REFERENCES `business_management`.`departmentid` ( `DepartmentId` ) ON DELETE CASCADE ON UPDATE CASCADE 
+);
+CREATE TABLE Staff_Project (
+	`StaffId` CHAR ( 6 ) NOT NULL,
+	`ProjectId` CHAR ( 9 ) NOT NULL,
+	`ProjectStatus` BIT NULL,
+	PRIMARY KEY ( `StaffId`, `ProjectId` ),
+	CONSTRAINT `FK_SP_StaffId` FOREIGN KEY ( `StaffId` ) REFERENCES `business_management`.`staff` ( `StaffId` ) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT `FK_SP_ProjectId` FOREIGN KEY ( `ProjectId` ) REFERENCES `business_management`.`project` ( `ProjectId` ) ON DELETE CASCADE ON UPDATE CASCADE 
+);
+CREATE TABLE Staff_Task (
+	`StaffId` CHAR ( 6 ) NOT NULL,
+	`TaskId` CHAR ( 9 ) NOT NULL,
+	`TaskStatus` BIT,
+	PRIMARY KEY ( `StaffId`, `TaskId` ),
+	CONSTRAINT `FK_ST_StaffId` FOREIGN KEY ( `StaffId` ) REFERENCES `business_management`.`staff` ( `StaffId` ) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT `FK_ST_TaskId` FOREIGN KEY ( `TaskId` ) REFERENCES `business_management`.`task` ( `TaskId` ) ON DELETE CASCADE ON UPDATE CASCADE 
+);-- 添加外键
+ALTER TABLE `business_management`.`staff` ADD CONSTRAINT `FK_Staff_FileId` FOREIGN KEY ( `StafFileId` ) REFERENCES `business_management`.`folder` ( `FolderId` );
+ALTER TABLE `business_management`.`project` ADD CONSTRAINT `FK_Project_FileId` FOREIGN KEY ( `ProjectPathId` ) REFERENCES `business_management`.`folder` ( `FolderId` );
