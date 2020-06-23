@@ -35,9 +35,8 @@ public class DatabaseDepartment(
             }
             preparedStatement=connection.preparedStatement(sqlInsert);
             preparedStatement=setString(1,maxDepartmentId);
-            preparedStatement=setString(2,department.getDepartmentId());
-            preparedStatement=setString(3,department.getDepartmentName());
-            preparedStatement=setString(4,department.getDepartmentAddress());
+            preparedStatement=setString(2,department.getDepartmentName());
+            preparedStatement=setString(3,department.getDepartmentAddress());
             preparedStatement.executeUpdate();
         }catch(SQLException){
             System.out.println(e.toString());
