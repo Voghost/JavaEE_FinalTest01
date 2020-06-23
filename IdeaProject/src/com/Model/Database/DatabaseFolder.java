@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DatabaseFolder{
-    public int insertStaff(Folder folder){
+    public int insertFolder(Folder folder){
         DataBean dataBean=new DataBean();
         DataSource dataSource=dataBean.getDataSource();
         Connection connection=null;
