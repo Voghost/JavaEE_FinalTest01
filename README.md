@@ -349,3 +349,19 @@ public int assignFolderForProject(String folderId,String projectId);
 ```java
 public int assignFolderForStaff(String folder,String staffId);
 ```
+
+
+
+### 1.4 包装类的设计
+
+#### 1.4.4 任务类
+
+```java
+public class Task{
+	String TaskId;
+	String TaskName;
+	String TaskRemark;
+	String TaskStartDate;
+	String TaskEndDate;
+}
+```
