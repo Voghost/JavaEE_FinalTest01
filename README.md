@@ -350,9 +350,38 @@ public int assignFolderForProject(String folderId,String projectId);
 public int assignFolderForStaff(String folder,String staffId);
 ```
 
+###  1.4 包装类设计
 
+#### 1.4.1 员工
+```java
+public class Staff{
+  String staffId;
+  String staffName;
+  String staffPhone;
+  String staffFileID;
+  String staffPassword;
+}
+```
 
-### 1.4 包装类的设计
+#### 1.4.2 部门
+```java
+public class Department{
+  String departmentId;
+  String departmentName;
+  String departmentAddress;
+}
+```
+
+#### 1.4.3 项目
+```java
+public class Project{
+  String projectId;
+  String projectName;
+  String projectPathId;
+  String projectRemark;
+  String projectStatus;
+}
+```
 
 #### 1.4.4 任务类
 
@@ -365,3 +394,4 @@ public class Task{
 	String TaskEndDate;
 }
 ```
+
