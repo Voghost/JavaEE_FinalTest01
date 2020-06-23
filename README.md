@@ -84,10 +84,10 @@
 ##### (1) 员工表 (Staff)
 ```sql
 CREATE TABLE Staff  (
-		`StaffId` char(6) NOT NULL CHECK(StaffId LIKE 'S[0-9][0-9][0-9][0-9][0-9]'),
+		`StaffId` char(6) NOT NULL CHECK(StaffId regexp 'S[0-9][0-9][0-9][0-9][0-9]'),
 		`StaffName` varchar(40) NULL ,
 		`StaffPhone` varchar(15) NULL,
-		`StafFileId` char(9) NULL CHECK(StafFileId LIKE 'F[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+		`StafFileId` char(9) NULL CHECK(StafFileId regexp 'F[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
 		`StaffPassword` varchar(15) NOT NULL ,
 		PRIMARY KEY (`StaffId`)
 		);
@@ -103,7 +103,7 @@ CREATE TABLE Staff  (
 ##### (2) 部门表(Department)
 ```sql
 CREATE TABLE DepartmentId  (
-`DepartmentId` char(4) NOT NULL CHECK(DepartmentId LIKE 'D[0-9][0-9][0-9]'),
+`DepartmentId` char(4) NOT NULL CHECK(DepartmentId regexp 'D[0-9][0-9][0-9]'),
   `DepartmentName` varchar(40) NULL,
   `DepartmentAddress` varchar(40) NULL,
   PRIMARY KEY (`DepartmentId`)
@@ -121,7 +121,7 @@ CREATE TABLE DepartmentId  (
 ##### (3) 目录表(Folder)
 ```sql
 CREATE TABLE Folder  (
-  `FolderId` char(9) NOT NULL CHECK(FolderId LIKE 'F[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+  `FolderId` char(9) NOT NULL CHECK(FolderId regexp 'F[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
   `FolderPath` varchar(30) NULL,
   `FolderRemark` varchar(45) NULL,
   PRIMARY KEY (`FolderId`)
@@ -137,9 +137,9 @@ CREATE TABLE Folder  (
 ##### (4) 项目表 (Project)
 ```sql
 CREATE TABLE Project  (
-  `ProjectId` char(9) NOT NULL CHECK(ProjectId LIKE 'P[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9])'),
+  `ProjectId` char(9) NOT NULL CHECK(ProjectId regexp 'P[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9])'),
   `ProjectName` varchar(30) NULL,
-  `ProjectPathId` char(9) NULL CHECK(ProjectPathId LIKE 'F[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]' ),
+  `ProjectPathId` char(9) NULL CHECK(ProjectPathId regexp 'F[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]' ),
   `ProjectRemark` varchar(45) NULL,
   PRIMARY KEY (`ProjectId`)
 )
@@ -157,7 +157,7 @@ CREATE TABLE Project  (
 ##### (5) 任务表(Task)
 ```sql
 CREATE TABLE task(
-`TaskId` char(9) NOT NULL CHECK(TaskId LIKE 'T[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+`TaskId` char(9) NOT NULL CHECK(TaskId regexp 'T[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
   `TaskName` varchar(30) NULL,
   `TaskRemark` varchar(45) NULL,
   `TaskStartDate` DATE NULL,
