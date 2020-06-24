@@ -40,7 +40,7 @@ CREATE TABLE Staff_Department (
 	`DepartmentId` CHAR ( 4 ) NOT NULL,
 	PRIMARY KEY ( `StaffId`, `DepartmentId` ),
 	CONSTRAINT `FK_SD_StaffId` FOREIGN KEY ( `StaffId` ) REFERENCES `business_management`.`staff` ( `StaffId` ) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT `FK_SD_Department` FOREIGN KEY ( `DepartmentId` ) REFERENCES `business_management`.`departmentid` ( `DepartmentId` ) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT `FK_SD_Department` FOREIGN KEY ( `DepartmentId` ) REFERENCES `business_management`.`department` ( `DepartmentId` ) ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE TABLE Staff_Project (
 	`StaffId` CHAR ( 6 ) NOT NULL,
