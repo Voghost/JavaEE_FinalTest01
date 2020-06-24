@@ -4,11 +4,11 @@ package com.Model.Entity;
  * Created by Edgar Liu
  */
 public class Staff {
-    String staffId;
-    String staffName;
-    String staffPhone;
-    String staffFileID;
-    String staffPassword;
+    String staffId=null;
+    String staffName=null;
+    String staffPhone=null;
+    String staffFileID=null;
+    String staffPassword=null;
 
     public Staff() {
     }
