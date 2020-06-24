@@ -27,17 +27,17 @@ public class DatabaseFolder{
 
                  maxFolderId=resultSet.getString("maxId");
                 if(maxFolderId==null){
-                    maxFolderId="F00001";
+                    maxFolderId="F0000001";
                 }else {
-                    int tmp = Integer.parseInt(maxFolderId.substring(maxFolderId.length() - 5));
+                    int tmp = Integer.parseInt(maxFolderId.substring(maxFolderId.length() - 8));
                     tmp++;
                     maxFolderId = "F" + String.format("%05d", tmp);
                 }
             }
             preparedStatement=connection.prepareStatement(sqlInsert);
             preparedStatement.setString(1,maxFolderId);
-            preparedStatement.setString(2,staff.getFolderPath());
-            preparedStatement.setString(3,staff.getFolderRemark());
+            preparedStatement.setString(2,folder.getFolderPath());
+            preparedStatement.setString(3,folder.getFolderRemark());
             preparedStatement.executeUpdate();
         }catch (SQLException e){
             System.out.println(e.toString());

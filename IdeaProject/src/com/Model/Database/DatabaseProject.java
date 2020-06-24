@@ -15,7 +15,7 @@ public class DatabaseProject{
         Connection connection=null;
         PreparedStatement preparedStatement=null;
         ResultSet resultSet=null;
-        String maxProjectId="F00001";
+        String maxProjectId="F0000001";
         String sqlSearch="SELECT MAX(ProjectId) AS maxID FROM Project";
         String sqlInsert="INSERT INTO Project(ProjectId,ProjectName,ProjectRemark,ProjectStatus) VALUES(?,?,?,?)";
 
@@ -27,18 +27,18 @@ public class DatabaseProject{
 
                  maxProjectId=resultSet.getString("maxId");
                 if(maxProjectId==null){
-                    maxProjectId="F00001";
+                    maxProjectId="P0000001";
                 }else {
-                    int tmp = Integer.parseInt(maxProjectId.substring(maxProjectId.length() - 5));
+                    int tmp = Integer.parseInt(maxProjectId.substring(maxProjectId.length() - 8));
                     tmp++;
-                    maxProjectId = "F" + String.format("%05d", tmp);
+                    maxProjectId = "P" + String.format("%08d", tmp);
                 }
             }
             preparedStatement=connection.prepareStatement(sqlInsert);
             preparedStatement.setString(1,maxProjectId);
-            preparedStatement.setString(2,staff.getProjectName());
-            preparedStatement.setString(3,staff.getProjectRemark());
-            preparedStatement.setString(4,staff.getProjectStatus());
+            preparedStatement.setString(2,project.getProjectName());
+            preparedStatement.setString(3,project.getProjectRemark());
+            preparedStatement.setString(4,project.getProjectStatus());
             preparedStatement.executeUpdate();
         }catch (SQLException e){
             System.out.println(e.toString());
