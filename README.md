@@ -102,7 +102,7 @@ CREATE TABLE Staff  (
 
 ##### (2) 部门表(Department)
 ```sql
-CREATE TABLE DepartmentId  (
+CREATE TABLE Department  (
 `DepartmentId` char(4) NOT NULL CHECK(DepartmentId regexp 'D[0-9][0-9][0-9]'),
   `DepartmentName` varchar(40) NULL,
   `DepartmentAddress` varchar(40) NULL,
@@ -295,7 +295,7 @@ public int assignProject(String projectId);
 
 * 查找项目(searchDepartment)
 ```java
-public int searchDepartment(String key,int paramNo);//通过关键字寻找部门
+public ArrayList<Staff> searchDepartment(String key,int paramNo);//通过关键字寻找部门
 ```
 
 #### 1.3.4 任务的数据库操作(任务-数据库操作类 DatabaseTask)
@@ -321,7 +321,7 @@ public int assignTask(String staffId,TaskInfo taskId);
 
 * 查找任务(searchTask)
 ```java
-public int searchTask(String key,int paramNO);
+public ArrayList<Task> searchTask(String key,int paramNO);
 ```
 
 #### 1.3.5 文件夹数据库操作()
