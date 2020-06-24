@@ -6,7 +6,7 @@ CREATE TABLE Staff (
 	`StaffPassword` VARCHAR ( 15 ) NOT NULL,
 	PRIMARY KEY ( `StaffId` )
 );
-CREATE TABLE DepartmentId (
+CREATE TABLE Department (
 	`DepartmentId` CHAR ( 4 ) NOT NULL CHECK ( DepartmentId regexp 'D[0-9][0-9][0-9]' ),
 	`DepartmentName` VARCHAR ( 40 ) NULL,
 	`DepartmentAddress` VARCHAR ( 40 ) NULL,
