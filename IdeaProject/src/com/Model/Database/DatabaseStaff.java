@@ -71,7 +71,7 @@ public class DatabaseStaff{
             }
 
             if(staff.getStaffPhone()!=null){
-                preparedStatement=connection.prepareStatement("UPDATE staff SET StaffPhone=? WHERE StaffPhone=?");
+                preparedStatement=connection.prepareStatement("UPDATE staff SET StaffPhone=? WHERE StaffId=?");
                 preparedStatement.setString(1,staff.getStaffPhone());
                 preparedStatement.setString(2,staff.getStaffId());
                 preparedStatement.executeUpdate();

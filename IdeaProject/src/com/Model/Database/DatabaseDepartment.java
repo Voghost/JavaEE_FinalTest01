@@ -2,20 +2,25 @@ package com.Model.Database;
 
 
 import com.Model.Entity.Department;
+import com.Model.Entity.Staff;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DatabaseDepartment {
+    DataBean dataBean = new DataBean();
+    DataSource dataSource = dataBean.getDataSource();
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
+
+    //插入数据
     public int insertDepartment(Department department) {
-        DataBean dataBean = new DataBean();
-        DataSource dataSource = dataBean.getDataSource();
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+
         String maxDepartmentId = "D00001";
         String sqlSearch = "SELECT MAX(DepartmentId)AS maxID FROM department";
         String sqlInsert = "INSERT INTO department(DepartmentId,DepartmentName,DepartmentAddress)VALUES(?,?,?)";
@@ -27,11 +32,11 @@ public class DatabaseDepartment {
             if (resultSet.next()) {
                 maxDepartmentId = resultSet.getString("maxID");
                 if (maxDepartmentId == null) {
-                    maxDepartmentId = "D00001";
+                    maxDepartmentId = "D001";
                 } else {
-                    int tmp = Integer.parseInt(maxDepartmentId.substring(maxDepartmentId.length() - 5));
+                    int tmp = Integer.parseInt(maxDepartmentId.substring(maxDepartmentId.length() - 3));
                     tmp++;
-                    maxDepartmentId = "D" + String.format("%05d", tmp);
+                    maxDepartmentId = "D" + String.format("%03d", tmp);
                 }
             }
             preparedStatement = connection.prepareStatement(sqlInsert);
@@ -43,5 +48,121 @@ public class DatabaseDepartment {
             System.out.println(e.toString());
         }
         return 1;
+    }
+
+    //修改数据
+    public int updateDepartment(Department department) {
+        try {
+            connection = dataSource.getConnection();
+            if (department.getDepartmentName() != null) {
+                preparedStatement = connection.prepareStatement("UPDATE department SET departmentName=? WHERE departmentId=?");
+                preparedStatement.setString(1, department.getDepartmentName());
+                preparedStatement.setString(2, department.getDepartmentId());
+                preparedStatement.executeUpdate();
+
+            }
+            if (department.getDepartmentId() != null) {
+                preparedStatement = connection.prepareStatement("UPDATE department SET departmentAddress=? WHERE departmentId=?");
+                preparedStatement.setString(1, department.getDepartmentAddress());
+                preparedStatement.setString(2, department.getDepartmentId());
+                preparedStatement.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return 0;
+        } finally {
+            closeProcess(connection, resultSet, preparedStatement);
+        }
+        return 1;
+    }
+
+    //删除数据
+    public int deleteDepartment(Department department) {
+        try {
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement("delete from Department where departmentId=?");
+            preparedStatement.setString(1, department.getDepartmentId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return 0;
+
+        }
+        return 1;
+    }
+
+    //查找数据
+    public ArrayList<Department> searchDepartment(String key, int paramNo){
+        ArrayList<Department> departments=new ArrayList<Department>();
+        String tempElement;
+        if(paramNo==1){
+            tempElement="DepartmentId";
+        }else if(paramNo==2){
+            tempElement="DepartmentName";
+        }else  if(paramNo==3){
+            tempElement="DepartmentAddress";
+        }else {
+            System.out.println("ERROR 参数错误");
+            return null;
+        }
+
+        try{
+
+            connection=dataSource.getConnection();
+            preparedStatement=connection.prepareStatement("select * from department where "+tempElement+"=?");
+            preparedStatement.setString(1,key);
+            resultSet=preparedStatement.executeQuery();
+            String tmp;
+            while(resultSet.next()){
+                Department newdepartment=new Department();
+                if((tmp=resultSet.getString(1))!=null){
+                    newdepartment.setDepartmentId(tmp);
+                }
+                if((tmp=resultSet.getString(2))!=null){
+                    newdepartment.setDepartmentName(tmp);
+                }
+                if((tmp=resultSet.getString(3))!=null){
+                    newdepartment.setDepartmentAddress(tmp);
+                }
+
+                departments.add(newdepartment);
+            }
+
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }finally {
+            closeProcess(connection,resultSet,preparedStatement);
+        }
+        return departments;
+    }
+
+    //包装了关闭函数，用于关闭数据库相关的连接
+    public int closeProcess(Connection connection, ResultSet resultSet, PreparedStatement preparedStatement) {
+        int flag = 1;
+        if (preparedStatement != null) {
+            try {
+                preparedStatement.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+                flag = 0;
+            }
+        }
+        if (resultSet != null) {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+                flag = 0;
+            }
+        }
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+        return flag;
     }
 }
