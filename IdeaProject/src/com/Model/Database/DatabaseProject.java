@@ -1,5 +1,6 @@
 package com.Model.Database;
 
+import com.Model.Entity.Folder;
 import com.Model.Entity.Project;
 
 import javax.sql.DataSource;
@@ -121,6 +122,7 @@ public class DatabaseProject {
             preparedStatement.setString(1,key);
             resultSet=preparedStatement.executeQuery();
             String tmp;
+            int countOfResult=0;
             while(resultSet.next()){
                 Project newproject=new Project();
                 if((tmp=resultSet.getString(1))!=null){
@@ -134,10 +136,85 @@ public class DatabaseProject {
                 }
 
                 projects.add(newproject);
+                countOfResult++;
+            }
+            if(countOfResult==0){
+                return new ArrayList<Project>();
             }
 
         }catch(SQLException e){
             System.out.println(e.toString());
+        }finally {
+            closeProcess(connection,resultSet,preparedStatement);
+        }
+        return projects;
+    }
+
+    //查找数据(通过对象)
+    public ArrayList<Project> searchProject(Project project){
+        ArrayList<Project> projects=new ArrayList<Project>();
+        String sql="SELECT * FROM folder WHERE 1=1 ";
+        int countOfConditions=0;
+        String conditions[] =new String[8];
+
+        if(project.getProjectId()!=null){
+            sql=sql+" AND projectId=?";
+            conditions[countOfConditions]=project.getProjectId();
+            countOfConditions++;
+
+        }
+        if(project.getProjectName()!=null) {
+            sql=sql+" AND ProjectName=?";
+            conditions[countOfConditions]=project.getProjectName();
+            countOfConditions++;
+        }
+        if(project.getProjectPathId()!=null){
+            sql=sql+" AND ProjectPathId=?";
+            conditions[countOfConditions]=project.getProjectPathId();
+            countOfConditions++;
+        }
+        if(project.getProjectRemark()!=null){
+            sql=sql+" AND ProjectRemark=?";
+            conditions[countOfConditions]=project.getProjectRemark();
+            countOfConditions++;
+        }
+        if(countOfConditions==0){
+            return new ArrayList<Project>();
+        }
+        try{
+            connection=dataSource.getConnection();
+            preparedStatement=connection.prepareStatement(sql);
+            for(int i=0;i<countOfConditions;i++){
+                preparedStatement.setString(i,conditions[i]);
+            }
+            resultSet= preparedStatement.executeQuery();
+            String tmp;
+            int countOfResult=0;
+            while(resultSet.next()){
+                Project newProject=new Project();
+
+                if((tmp=resultSet.getString(1))!=null){
+                    newProject.setProjectId(tmp);
+                }
+                if((tmp=resultSet.getString(2))!=null){
+                    newProject.setProjectName(tmp);
+                }
+                if((tmp=resultSet.getString(3))!=null){
+                    newProject.setProjectPathId(tmp);
+                }
+                if((tmp=resultSet.getString(4))!=null){
+                    newProject.setProjectRemark(tmp);
+                }
+
+                projects.add(newProject);
+                countOfResult++;
+            }
+            if(countOfResult==0){
+                return new ArrayList<Project>();
+            }
+        }catch (SQLException e){
+            System.out.println(e.toString());
+            return null;
         }finally {
             closeProcess(connection,resultSet,preparedStatement);
         }

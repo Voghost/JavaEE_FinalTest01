@@ -92,7 +92,7 @@ public class DatabaseDepartment {
         return 1;
     }
 
-    //查找数据
+    //查找数据(通过参数)
     public ArrayList<Department> searchDepartment(String key, int paramNo){
         ArrayList<Department> departments=new ArrayList<Department>();
         String tempElement;
@@ -115,18 +115,18 @@ public class DatabaseDepartment {
             resultSet=preparedStatement.executeQuery();
             String tmp;
             while(resultSet.next()){
-                Department newdepartment=new Department();
+                Department newDepartment=new Department();
                 if((tmp=resultSet.getString(1))!=null){
-                    newdepartment.setDepartmentId(tmp);
+                    newDepartment.setDepartmentId(tmp);
                 }
                 if((tmp=resultSet.getString(2))!=null){
-                    newdepartment.setDepartmentName(tmp);
+                    newDepartment.setDepartmentName(tmp);
                 }
                 if((tmp=resultSet.getString(3))!=null){
-                    newdepartment.setDepartmentAddress(tmp);
+                    newDepartment.setDepartmentAddress(tmp);
                 }
 
-                departments.add(newdepartment);
+                departments.add(newDepartment);
             }
 
         }catch(SQLException e){
@@ -137,6 +137,62 @@ public class DatabaseDepartment {
         return departments;
     }
 
+    //查找数据（通过类名)
+    public ArrayList<Department> searchDepartment(Department department){
+        ArrayList<Department> departments=new ArrayList<Department>();
+        String sql="SELECT * FROM department WHERE ";
+        String conditions[]=new String[8];
+        int countOfConditions =0;
+       if(department.getDepartmentId()!=null){
+           sql=sql+"AND DepartmentId=? ";
+           conditions[countOfConditions]=department.getDepartmentId();
+           countOfConditions++;
+       }
+       if(department.getDepartmentName()!=null) {
+           sql=sql+"AND DepartmentName =? ";
+           conditions[countOfConditions]=department.getDepartmentName();
+           countOfConditions++;
+       }
+       if(department.getDepartmentAddress()!=null){
+           sql=sql+"AND DepartmentAdress=? ";
+           conditions[countOfConditions]=department.getDepartmentAddress();
+           countOfConditions++;
+       }
+       if(countOfConditions==0){
+           return new ArrayList<Department>();
+       }
+
+
+       try{
+           connection=dataSource.getConnection();
+           preparedStatement=connection.prepareStatement(sql);
+           for(int i=0;i<countOfConditions;i++){
+               preparedStatement.setString(i,conditions[i]);
+           }
+          resultSet= preparedStatement.executeQuery();
+          String tmp;
+           while(resultSet.next()){
+               Department newDepartment=new Department();
+               if((tmp=resultSet.getString(1))!=null){
+                   newDepartment.setDepartmentId(tmp);
+               }
+               if((tmp=resultSet.getString(2))!=null){
+                   newDepartment.setDepartmentName(tmp);
+               }
+               if((tmp=resultSet.getString(3))!=null){
+                   newDepartment.setDepartmentAddress(tmp);
+               }
+
+               departments.add(newDepartment);
+           }
+       }catch (SQLException e){
+           System.out.println(e.toString());
+           return null;
+       }finally {
+           closeProcess(connection,resultSet,preparedStatement);
+       }
+        return departments;
+    }
     //包装了关闭函数，用于关闭数据库相关的连接
     public int closeProcess(Connection connection, ResultSet resultSet, PreparedStatement preparedStatement) {
         int flag = 1;

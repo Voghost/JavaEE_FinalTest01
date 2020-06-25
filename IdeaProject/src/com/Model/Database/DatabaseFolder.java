@@ -1,5 +1,6 @@
 package com.Model.Database;
 
+import com.Model.Entity.Department;
 import com.Model.Entity.Folder;
 import com.Model.Entity.Folder;
 
@@ -93,7 +94,7 @@ public class DatabaseFolder {
         return 1;
     }
 
-    //修改数据
+    //查找数据(通过参数)
     public ArrayList<Folder> searchFolder(String key, int paramNo){
         ArrayList<Folder> folders=new ArrayList<Folder>();
         String tempElement;
@@ -128,6 +129,64 @@ public class DatabaseFolder {
 
         }catch(SQLException e){
             System.out.println(e.toString());
+        }finally {
+            closeProcess(connection,resultSet,preparedStatement);
+        }
+        return folders;
+    }
+
+    //查找数据(通过对象)
+    public ArrayList<Folder> searchFolder(Folder folder){
+        ArrayList<Folder> folders=new ArrayList<Folder>();
+        String sql="SELECT * FROM folder WHERE 1=1 ";
+        String conditions[]=new String[8];
+        int countOfConditions =0;
+        if(folder.getFolderId()!=null){
+            sql=sql+" AND folderId=? ";
+            conditions[countOfConditions]=folder.getFolderId();
+            countOfConditions++;
+
+        }
+        if(folder.getFolderPath()!=null) {
+            sql=sql+" AND FolderPath=? ";
+            conditions[countOfConditions]=folder.getFolderPath();
+            countOfConditions++;
+
+        }
+        if(folder.getFolderRemark()!=null){
+            sql=sql+"AND FolderRemark=? ";
+            conditions[countOfConditions]=folder.getFolderRemark();
+            countOfConditions++;
+        }
+        if(countOfConditions==0){
+            return new ArrayList<Folder>();
+        }
+
+        try{
+            connection=dataSource.getConnection();
+            preparedStatement=connection.prepareStatement(sql);
+            for (int i = 0; i < countOfConditions; i++) {
+                    preparedStatement.setString(i,conditions[i]);
+            }
+            resultSet= preparedStatement.executeQuery();
+            String tmp;
+            while(resultSet.next()){
+                Folder newFolder=new Folder();
+
+                if((tmp=resultSet.getString(1))!=null){
+                   newFolder.setFolderId(tmp);
+                }
+                if((tmp=resultSet.getString(2))!=null){
+                    newFolder.setFolderPath(tmp);
+                }
+                if((tmp=resultSet.getString(3))!=null){
+                    newFolder.setFolderRemark(tmp);
+                }
+                folders.add(newFolder);
+            }
+        }catch (SQLException e){
+            System.out.println(e.toString());
+            return null;
         }finally {
             closeProcess(connection,resultSet,preparedStatement);
         }
