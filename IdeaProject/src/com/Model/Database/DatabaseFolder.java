@@ -165,8 +165,8 @@ public class DatabaseFolder {
         try{
             connection=dataSource.getConnection();
             preparedStatement=connection.prepareStatement(sql);
-            for (int i = 0; i < countOfConditions; i++) {
-                    preparedStatement.setString(i,conditions[i]);
+            for (int i = 1; i <= countOfConditions; i++) {
+                    preparedStatement.setString(i,conditions[i-1]);
             }
             resultSet= preparedStatement.executeQuery();
             String tmp;

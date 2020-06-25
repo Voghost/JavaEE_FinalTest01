@@ -166,8 +166,8 @@ public class DatabaseDepartment {
        try{
            connection=dataSource.getConnection();
            preparedStatement=connection.prepareStatement(sql);
-           for(int i=0;i<countOfConditions;i++){
-               preparedStatement.setString(i,conditions[i]);
+           for(int i=1;i<=countOfConditions;i++){
+               preparedStatement.setString(i,conditions[i-1]);
            }
           resultSet= preparedStatement.executeQuery();
           String tmp;
@@ -193,6 +193,7 @@ public class DatabaseDepartment {
        }
         return departments;
     }
+
     //包装了关闭函数，用于关闭数据库相关的连接
     public int closeProcess(Connection connection, ResultSet resultSet, PreparedStatement preparedStatement) {
         int flag = 1;
@@ -221,4 +222,5 @@ public class DatabaseDepartment {
         }
         return flag;
     }
+
 }

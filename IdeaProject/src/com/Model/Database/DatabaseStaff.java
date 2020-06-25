@@ -132,7 +132,7 @@ public class DatabaseStaff {
             preparedStatement.setString(1, key);
             resultSet = preparedStatement.executeQuery();
             String tmp;
-            int countOfResult=0;
+            int countOfResult = 0;
             while (resultSet.next()) {
                 Staff newStaff = new Staff();
                 if ((tmp = resultSet.getString(1)) != null) {
@@ -153,13 +153,13 @@ public class DatabaseStaff {
                 countOfResult++;
                 staffs.add(newStaff);
             }
-            if(countOfResult==0){
+            if (countOfResult == 0) {
                 return new ArrayList<Staff>();
             }
 
         } catch (SQLException e) {
             System.out.println(e.toString());
-            return  null;
+            return null;
         } finally {
             closeProcess(connection, resultSet, preparedStatement);
         }
@@ -171,42 +171,41 @@ public class DatabaseStaff {
         ArrayList<Staff> staffs = new ArrayList<Staff>();
         String sql = "SELECT * FROM  staff WHERE 1=1";
         int countOfCondition = 0; //拥有条件的次数
-        String []condition=new String[8];
+        String[] condition = new String[8];
 
         if (staff.getStaffId() != null) {
             sql = sql + " AND staffId=?";
-            condition[countOfCondition]=staff.getStaffId();
+            condition[countOfCondition] = staff.getStaffId();
             countOfCondition++;
         }
         if (staff.getStaffName() != null) {
             sql = sql + " AND StaffName=?";
-            condition[countOfCondition]=staff.getStaffName();
+            condition[countOfCondition] = staff.getStaffName();
             countOfCondition++;
         }
         if (staff.getStaffPhone() != null) {
             sql = sql + " AND StaffPhone=?";
-            condition[countOfCondition]=staff.getStaffPhone();
+            condition[countOfCondition] = staff.getStaffPhone();
             countOfCondition++;
         }
         if (staff.getStaffFileID() != null) {
             sql = sql + " AND StaffFileId=?";
-            condition[countOfCondition]=staff.getStaffFileID();
+            condition[countOfCondition] = staff.getStaffFileID();
             countOfCondition++;
         }
         if (staff.getStaffPassword() != null) {
             sql = sql + " AND StaffPassword=?";
-            condition[countOfCondition]=staff.getStaffPassword();
+            condition[countOfCondition] = staff.getStaffPassword();
             countOfCondition++;
         }
         if (countOfCondition == 0) {
             return null;
         }
-        System.out.println(sql); //test============================test
         try {
             connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement(sql);
-            for(int i=0;i<countOfCondition;i++){
-                preparedStatement.setString(1,condition[i]);
+            for (int i = 1; i <= countOfCondition; i++) {
+                preparedStatement.setString(i, condition[i-1]);
             }
             resultSet = preparedStatement.executeQuery();
             String tmp;

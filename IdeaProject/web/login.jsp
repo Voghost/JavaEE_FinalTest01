@@ -12,9 +12,14 @@
     <link rel="stylesheet" href="css/style.css" type="text/css" media="all"/>
 </head>
 <body>
-
 <%--主要背景--%>
 <div class="main-bg" id="mian">
+    <span style="color:black; font-size:large; font-weight: bold">
+
+    <%if(request.getAttribute("error")!=null){
+        out.println(request.getAttribute("error")+"<br/>");
+    }%>
+    </span>
     <h1 id="head-font">后台管理系统</h1>
     <div class="sub-main-w3">
         <div class="vertical-tab">
@@ -22,11 +27,11 @@
                 <input type="radio" name="sections" id="option1" checked>
                 <label for="option1" class="icon-left-w3pvt"><span class="fa fa-user-circle" aria-hidden="true"></span>登录</label>
                 <article>
-                    <form action="#" method="post">
+                    <form action="loginHandlerServlet" method="post">
                         <h3 class="legend">账号登录</h3>
                         <div class="input">
                             <span class="fa fa-envelope-o" aria-hidden="true"></span>
-                            <input type="text"  placeholder="账号" name="email" required/>
+                            <input type="text"  placeholder="账号" name="userName" required/>
                         </div>
                         <div class="input">
                             <span class="fa fa-key" aria-hidden="true"></span>
