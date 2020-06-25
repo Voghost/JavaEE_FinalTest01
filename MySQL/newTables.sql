@@ -19,7 +19,7 @@ CREATE TABLE Folder (
 	PRIMARY KEY ( `FolderId` )
 );
 CREATE TABLE Project (
-	`ProjectId` CHAR ( 9 ) NOT NULL CHECK ( ProjectId regexp 'P[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9])' ),
+	`ProjectId` CHAR ( 9 ) NOT NULL CHECK ( ProjectId regexp 'P[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]' ),
 `ProjectName` VARCHAR ( 30 ) NULL,
 `ProjectPathId` CHAR ( 9 ) NULL CHECK ( ProjectPathId regexp 'F[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
 `ProjectRemark` VARCHAR ( 45 ) NULL,
