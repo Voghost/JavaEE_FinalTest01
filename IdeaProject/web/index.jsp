@@ -1,4 +1,6 @@
-<%--
+<%@ page import="com.Model.Entity.Staff" %>
+<%@ page import="com.Model.Database.DatabaseStaff" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: voghost
   Date: 2020/6/22
@@ -12,20 +14,16 @@
   </head>
   <body>
   <%
-    Class.forName("com.mysql.cj.jdbc.Driver");
-    String DB_URL = "jdbc:mysql://voghost-server.mysql.rds.aliyuncs.com/business_management?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true";
-    java.sql.Connection connection = null;
-    java.lang.String strConn;
-    try {
-      connection = java.sql.DriverManager.getConnection(DB_URL,"user_bm","Lf@1141776830");
-  %>
-  连接mysql数据库成功!
-  <%
-    } catch (java.sql.SQLException exception) {
-      out.println(exception.toString());
-    } finally {
-      if (connection != null) connection.close();
+      Staff staff=new Staff("S00001","员工1",null,null,null);
+    DatabaseStaff databaseStaff=new DatabaseStaff();
+    //databaseStaff.insertStaff(staff);
+
+    ArrayList<Staff> staffs=databaseStaff.searchStaff(staff);
+    System.out.println(staffs.size());
+    for(int i=0;i<staffs.size();i++){
+      System.out.println("staffId: "+staffs.get(i).getStaffId()+", StaffName: "+staffs.get(i).getStaffName());
     }
+
 
   %>
   </body>
