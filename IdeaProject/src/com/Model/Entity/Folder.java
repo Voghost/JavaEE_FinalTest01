@@ -5,6 +5,10 @@ public class Folder {
     String folderPath;
     String folderRemark;
 
+    public Folder(){
+
+    }
+
     public Folder(String folderId, String folderPath, String folderRemark) {
         this.folderId = folderId;
         this.folderPath = folderPath;

@@ -8,17 +8,15 @@ public class Project {
     String projectName;
     String projectPathId;
     String projectRemark;
-    String projectStatus;
 
     public Project() {
     }
 
-    public Project(String projectId, String projectName, String projectPathId, String projectRemark, String projectStatus) {
+    public Project(String projectId, String projectName, String projectPathId, String projectRemark) {
         this.projectId = projectId;
         this.projectName = projectName;
         this.projectPathId = projectPathId;
         this.projectRemark = projectRemark;
-        this.projectStatus = projectStatus;
     }
 
     public String getProjectId() {
@@ -53,14 +51,6 @@ public class Project {
         this.projectRemark = projectRemark;
     }
 
-    public String getProjectStatus() {
-        return projectStatus;
-    }
-
-    public void setProjectStatus(String projectStatus) {
-        this.projectStatus = projectStatus;
-    }
-
     @Override
     public String toString() {
         return "Project{" +
@@ -68,7 +58,6 @@ public class Project {
                 ", projectName='" + projectName + '\'' +
                 ", projectPathId='" + projectPathId + '\'' +
                 ", projectRemark='" + projectRemark + '\'' +
-                ", projectStatus='" + projectStatus + '\'' +
                 '}';
     }
 }
