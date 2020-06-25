@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DatabaseFolder {
-    
+
     DataBean dataBean = new DataBean();
     DataSource dataSource = dataBean.getDataSource();
     Connection connection = null;
@@ -166,7 +166,7 @@ public class DatabaseFolder {
             connection=dataSource.getConnection();
             preparedStatement=connection.prepareStatement(sql);
             for (int i = 1; i <= countOfConditions; i++) {
-                    preparedStatement.setString(i,conditions[i-1]);
+                preparedStatement.setString(i,conditions[i-1]);
             }
             resultSet= preparedStatement.executeQuery();
             String tmp;
@@ -174,7 +174,7 @@ public class DatabaseFolder {
                 Folder newFolder=new Folder();
 
                 if((tmp=resultSet.getString(1))!=null){
-                   newFolder.setFolderId(tmp);
+                    newFolder.setFolderId(tmp);
                 }
                 if((tmp=resultSet.getString(2))!=null){
                     newFolder.setFolderPath(tmp);
