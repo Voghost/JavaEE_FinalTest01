@@ -205,8 +205,8 @@ public class DatabaseStaff {
         try {
             connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement(sql);
-            for(int i=0;i<countOfCondition;i++){
-                preparedStatement.setString(1,condition[i]);
+            for(int i=1;i<=countOfCondition;i++){
+                preparedStatement.setString(i,condition[i-1]);
             }
             resultSet = preparedStatement.executeQuery();
             String tmp;

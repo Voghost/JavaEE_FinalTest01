@@ -153,12 +153,12 @@ public class DatabaseProject {
     //查找数据(通过对象)
     public ArrayList<Project> searchProject(Project project){
         ArrayList<Project> projects=new ArrayList<Project>();
-        String sql="SELECT * FROM folder WHERE 1=1 ";
+        String sql="SELECT * FROM project WHERE 1=1 ";
         int countOfConditions=0;
         String conditions[] =new String[8];
 
         if(project.getProjectId()!=null){
-            sql=sql+" AND projectId=?";
+            sql=sql+" AND ProjectId=?";
             conditions[countOfConditions]=project.getProjectId();
             countOfConditions++;
 
@@ -184,8 +184,8 @@ public class DatabaseProject {
         try{
             connection=dataSource.getConnection();
             preparedStatement=connection.prepareStatement(sql);
-            for(int i=0;i<countOfConditions;i++){
-                preparedStatement.setString(i,conditions[i]);
+            for(int i=1;i<=countOfConditions;i++){
+                preparedStatement.setString(i,conditions[i-1]);
             }
             resultSet= preparedStatement.executeQuery();
             String tmp;
