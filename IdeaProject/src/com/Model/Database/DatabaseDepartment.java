@@ -140,27 +140,25 @@ public class DatabaseDepartment {
     //查找数据（通过类名)
     public ArrayList<Department> searchDepartment(Department department){
         ArrayList<Department> departments=new ArrayList<Department>();
-        String sql="SELECT * FROM department WHERE ";
+        String sql="SELECT * FROM department WHERE 1=1 ";
         String conditions[]=new String[8];
         int countOfConditions =0;
        if(department.getDepartmentId()!=null){
-           sql=sql+"AND DepartmentId=? ";
+           sql=sql+" AND DepartmentId=? ";
            conditions[countOfConditions]=department.getDepartmentId();
            countOfConditions++;
        }
        if(department.getDepartmentName()!=null) {
-           sql=sql+"AND DepartmentName =? ";
+           sql=sql+" AND DepartmentName =? ";
            conditions[countOfConditions]=department.getDepartmentName();
            countOfConditions++;
        }
        if(department.getDepartmentAddress()!=null){
-           sql=sql+"AND DepartmentAdress=? ";
+           sql=sql+" AND DepartmentAdress=? ";
            conditions[countOfConditions]=department.getDepartmentAddress();
            countOfConditions++;
        }
-       if(countOfConditions==0){
-           return new ArrayList<Department>();
-       }
+
 
 
        try{

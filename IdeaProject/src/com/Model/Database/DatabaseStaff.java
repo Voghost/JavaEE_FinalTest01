@@ -198,9 +198,7 @@ public class DatabaseStaff {
 			condition[countOfCondition] = staff.getStaffPassword();
 			countOfCondition++;
 		}
-		if (countOfCondition == 0) {
-			return null;
-		}
+
 		try {
 			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
