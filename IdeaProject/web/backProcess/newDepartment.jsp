@@ -28,10 +28,10 @@
 <body>
 
 
-<form action="../error.jsp" method="post" target="">
+<form action="../newEntityServlet" method="post">
+    <input type="hidden" name="entityType" value="department"/>
     <!-- Popup -->
     <div id="Popup">
-
         <!-- SubPopup -->
         <div id="SubPopup">
             <script type="text/javascript">
@@ -71,16 +71,18 @@
                     <tr>
                         <th>部门名称 <span class="f_cB">*</span></th>
                         <td>
-                            <div class="txtbox floatL" style="width:200px;"><input name="" type="text" size="20"
-                                                                                   placeholder="部门名字"></div>
+                            <div class="txtbox floatL" style="width:200px;">
+                                <input name="departmentName" type="text" size="20" placeholder="部门名字">
+                            </div>
                         </td>
                     </tr>
 
                     <tr>
                         <th>部门地址 <span class="f_cB">*</span></th>
                         <td>
-                            <div class="txtbox floatL" style="width:700px;"><input name="" type="text" size="95"
-                                                                                   placeholder="部门地址"></div>
+                            <div class="txtbox floatL" style="width:700px;">
+                                <input name="departmentAddress" type="text" size="95" placeholder="部门地址">
+                            </div>
                         </td>
 
                     </tr>
