@@ -158,9 +158,7 @@ public class DatabaseFolder {
             conditions[countOfConditions]=folder.getFolderRemark();
             countOfConditions++;
         }
-        if(countOfConditions==0){
-            return new ArrayList<Folder>();
-        }
+
 
         try{
             connection=dataSource.getConnection();

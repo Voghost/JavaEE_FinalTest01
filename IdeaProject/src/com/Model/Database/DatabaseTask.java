@@ -192,9 +192,7 @@ public class DatabaseTask {
             condition[countOfCondition] = task.getTaskName();
             countOfCondition++;
         }
-        if (countOfCondition == 0) {
-            return null;
-        }
+
         try {
             connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement(sql);

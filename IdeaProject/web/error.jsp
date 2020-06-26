@@ -11,6 +11,7 @@
     <title>错误</title>
 </head>
 <body>
+<%System.out.println("被引用一次了");%>
 出现错误了
 </body>
 </html>

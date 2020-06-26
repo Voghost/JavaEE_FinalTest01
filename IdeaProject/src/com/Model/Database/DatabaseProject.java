@@ -178,9 +178,7 @@ public class DatabaseProject {
             conditions[countOfConditions]=project.getProjectRemark();
             countOfConditions++;
         }
-        if(countOfConditions==0){
-            return new ArrayList<Project>();
-        }
+
         try{
             connection=dataSource.getConnection();
             preparedStatement=connection.prepareStatement(sql);
