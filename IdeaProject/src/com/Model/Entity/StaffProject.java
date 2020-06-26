@@ -1,41 +1,38 @@
 package com.Model.Entity;
 
-/**
- * Created by Edgar Liu
- */
 public class StaffProject {
-    String StaffId;
-    String ProjectId;
+	String staffId = null;
+	String projectId = null;
 
-    public StaffProject() {
-    }
+	public StaffProject() {
+	}
 
-    public StaffProject(String staffId, String projectId) {
-        StaffId = staffId;
-        ProjectId = projectId;
-    }
+	public StaffProject(String staffId, String projectId) {
+		this.staffId = staffId;
+		this.projectId = projectId;
+	}
 
-    public String getStaffId() {
-        return StaffId;
-    }
+	public String getStaffId() {
+		return staffId;
+	}
 
-    public void setStaffId(String staffId) {
-        StaffId = staffId;
-    }
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
 
-    public String getProjectId() {
-        return ProjectId;
-    }
+	public String getProjectId() {
+		return projectId;
+	}
 
-    public void setProjectId(String projectId) {
-        ProjectId = projectId;
-    }
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
 
-    @Override
-    public String toString() {
-        return "StaffProject{" +
-                "StaffId='" + StaffId + '\'' +
-                ", ProjectId='" + ProjectId + '\'' +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "StaffProject{" +
+		       "staffId='" + staffId + '\'' +
+		       ", ProjectId='" + projectId + '\'' +
+		       '}';
+	}
 }

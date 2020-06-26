@@ -1,41 +1,38 @@
 package com.Model.Entity;
 
-/**
- * Created by Edgar Liu
- */
 public class StaffDepartment {
-    String StaffId;
-    String DepartmentId;
+	String staffId = null;
+	String departmentId = null;
 
-    public StaffDepartment() {
-    }
+	public StaffDepartment() {
+	}
 
-    public StaffDepartment(String staffId, String departmentId) {
-        StaffId = staffId;
-        DepartmentId = departmentId;
-    }
+	public StaffDepartment(String staffId, String departmentId) {
+		this.staffId = staffId;
+		this.departmentId = departmentId;
+	}
 
-    public String getStaffId() {
-        return StaffId;
-    }
+	public String getStaffId() {
+		return staffId;
+	}
 
-    public void setStaffId(String staffId) {
-        StaffId = staffId;
-    }
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
 
-    public String getDepartmentId() {
-        return DepartmentId;
-    }
+	public String getDepartmentId() {
+		return departmentId;
+	}
 
-    public void setDepartmentId(String departmentId) {
-        DepartmentId = departmentId;
-    }
+	public void setDepartmentId(String departmentId) {
+		this.departmentId = departmentId;
+	}
 
-    @Override
-    public String toString() {
-        return "StaffDepartment{" +
-                "StaffId='" + StaffId + '\'' +
-                ", DepartmentId='" + DepartmentId + '\'' +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "StaffDepartment{" +
+		       "staffId='" + staffId + '\'' +
+		       ", departmentId='" + departmentId + '\'' +
+		       '}';
+	}
 }
