@@ -45,6 +45,7 @@
                 <th>部门名称</th>
                 <th>部门地址</th>
                 <th>部门人数</th>
+                <th>  </th>
             </tr>
 
             <%
@@ -52,17 +53,42 @@
                 for (int i = 0; i < departments.size(); i++) {
             %>
             <tr>
-                <td><%out.println(i+1);%></td>
+                <td><%out.println(i + 1);%></td>
                 <td><%out.println(departments.get(i).getDepartmentId());%></td>
                 <td><%out.println(departments.get(i).getDepartmentName());%></td>
                 <td><%out.println(departments.get(i).getDepartmentAddress());%></td>
                 <td><%out.println(departmentProcess.getNumOfStaff(departments.get(i)));%></td>
+                <td>
+                    <form action="../deleteEntityServlet" method="post">
+                        <input type="hidden" name="entityType" value="department"/>
+                        <input type="hidden" name="deleteSection"
+                               value="<%out.print(departments.get(i).getDepartmentId());%>"/>
+                        <div class="btn_box floatR mag_l20">
+                            <input type="submit" value="删除部门" onClick="return confirm('删除后将无法恢复,确定要删除?')">
+                        </div>
+                    </form>
+                    <form action="insertDepartmentStaff.jsp" method="post">
+                        <input type="hidden" name="sectionDepartment" value="<%out.print(departments.get(i).getDepartmentId());%>"/>
+
+                        <div class="btn_boxB floatR">
+                            <input type="submit" value="添加员工">
+                        </div>
+                    </form>
+                    <form action="deleteDepartmentStaff.jsp" method="post">
+                        <input type="hidden" name="sectionDepartment" value="<%out.print(departments.get(i).getDepartmentId());%>"/>
+
+                        <div class="btn_boxB floatR">
+                            <input type="submit" value="删除员工">
+                        </div>
+                    </form>
+                </td>
+
             </tr>
             <%
                 }
             %>
         </table>
-        <p class="msg">共找到<%out.println(departments.size());%>条记录，当前显示从第1条至第10条</p>
+        <p class="msg">共找到<%out.println(departments.size());%>条记录</p>
     </div>
 </div>
 <!-- /MainForm -->

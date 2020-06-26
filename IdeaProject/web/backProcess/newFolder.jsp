@@ -29,7 +29,7 @@
 
 
 <form action="../newEntityServlet" method="post">
-    <input type="hidden" name="entityType" value="project"/>
+    <input type="hidden" name="entityType" value="folder"/>
     <!-- Popup -->
     <div id="Popup">
         <!-- SubPopup -->
@@ -69,34 +69,23 @@
 
                 <table cellpadding="0" cellspacing="0">
                     <tr>
-                        <th>项目名称 <span class="f_cB">*</span></th>
+                        <th>文件夹路径 <span class="f_cB">*</span></th>
                         <td>
                             <div class="txtbox floatL" style="width:200px;">
-                                <input name="ProjectName" type="text" size="20" placeholder="项目名称">
+                                <input name="FolderPath" type="text" size="20" placeholder="文件夹路径">
                             </div>
                         </td>
                     </tr>
 
                     <tr>
-                        <th>项目文件地址 <span class="f_cB">*</span></th>
+                        <th>文件夹描述 <span class="f_cB">*</span></th>
                         <td>
                             <div class="txtbox floatL" style="width:700px;">
-                                <input name="ProjectPathId" type="text" size="95" placeholder="项目文件编号">
+                                <input name="FolderRemark" type="text" size="95" placeholder="文件夹描述">
                             </div>
                         </td>
 
                     </tr>
-
-                    <tr>
-                        <th>备注 <span class="f_cB">*</span></th>
-                        <td>
-                            <div class="txtbox floatL" style="width:700px;">
-                                <input name="ProjectRemark" type="text" size="95" placeholder="备注">
-                            </div>
-                        </td>
-
-                    </tr>
-
 
                 </table>
             </div>

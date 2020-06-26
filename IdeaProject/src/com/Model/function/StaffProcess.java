@@ -1,6 +1,5 @@
 package com.Model.function;
 
-import com.Model.Database.DatabaseDepartment;
 import com.Model.Database.DatabaseStaff;
 import com.Model.Database.DatabaseStaffDepartment;
 import com.Model.Entity.Department;
@@ -24,12 +23,30 @@ public class StaffProcess {
         return databaseStaff.searchStaff(new Staff(null,null,null,null,null));
     }
 
-    public int getNumOfStaff(Staff staff){
+    //插入一条员工数据
+    public int newStaff(Staff staff){
         DatabaseStaff databaseStaff=new DatabaseStaff();
-        ArrayList<Staff> staffs= databaseStaff.searchStaff(new Staff(null,null,null,null,null));
-        if(staffs==null){
+        databaseStaff.insertStaff(staff);
+        return 1;
+    }
+
+    //得到某个员工的部门数量
+    public int getNumOfDepartment(Staff staff){
+        DatabaseStaffDepartment databaseStaffDepartment=new DatabaseStaffDepartment();
+        ArrayList<StaffDepartment> staffDepartments= databaseStaffDepartment.searchStaffOrDepartment(staff,new Department(null,null,null));
+        if(staffDepartments==null){
             return -1;
         }
-        return staffs.size();
+        return staffDepartments.size();
+    }
+
+    //删除员工数据
+    public int deleteStaff(Staff staff){
+        DatabaseStaff databaseStaff=new DatabaseStaff(); //删除员工
+        DatabaseStaffDepartment databaseStaffDepartment=new DatabaseStaffDepartment(); //删除与部门有联系的员工
+
+        databaseStaff.deleteStaff(staff);
+        databaseStaffDepartment.deleteStaffToDepartment(staff,new Department(null,null,null));
+        return 1;
     }
 }

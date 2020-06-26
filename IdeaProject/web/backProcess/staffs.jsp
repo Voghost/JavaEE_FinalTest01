@@ -37,14 +37,15 @@
 <!-- MainForm -->
 <div id="MainForm">
     <div class="form_boxA">
-        <h2>公司所有部门</h2>
+        <h2>员工</h2>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th>序号</th>
-                <th>部门编号</th>
-                <th>部门名称</th>
-                <th>部门地址</th>
-                <th>部门人数</th>
+                <th>员工编号</th>
+                <th>员工姓名</th>
+                <th>员工电话</th>
+                <th>员工所属部门数量</th>
+                <th>管理</th>
             </tr>
 
             <%
@@ -56,7 +57,12 @@
                 <td><%out.println(staffs.get(i).getStaffId());%></td>
                 <td><%out.println(staffs.get(i).getStaffName());%></td>
                 <td><%out.println(staffs.get(i).getStaffPhone());%></td>
-                <td><%out.println(staffProcess.getNumOfStaff(staffs.get(i)));%></td>
+                <td><%out.println(staffProcess.getNumOfDepartment(staffs.get(i)));%></td>
+                <form action="../deleteEntityServlet" method="post">
+                    <input type="hidden" name="entityType" value="staff"/>
+                    <input type="hidden" name="deleteSection" value="<%out.print(staffs.get(i).getStaffId());%>"/>
+                    <td><input type="submit" value="删除" onClick="return confirm('删除后将无法恢复,确定要删除?')" ></td>
+                </form>
             </tr>
             <%
                 }

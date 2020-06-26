@@ -22,7 +22,7 @@ public class DatabaseProject {
     public int insertProject(Project project) {
         String maxProjectId = "F0000001";
         String sqlSearch = "SELECT MAX(ProjectId) AS maxID FROM Project";
-        String sqlInsert = "INSERT INTO Project(ProjectId,ProjectName,ProjectRemark) VALUES(?,?,?)";
+        String sqlInsert = "INSERT INTO Project(ProjectId,ProjectName,ProjectPathId,ProjectRemark) VALUES(?,?,?,?)";
 
         try {
             connection = dataSource.getConnection();
@@ -42,7 +42,8 @@ public class DatabaseProject {
             preparedStatement = connection.prepareStatement(sqlInsert);
             preparedStatement.setString(1, maxProjectId);
             preparedStatement.setString(2, project.getProjectName());
-            preparedStatement.setString(3, project.getProjectRemark());
+            preparedStatement.setString(3, project.getProjectPathId());
+            preparedStatement.setString(4, project.getProjectRemark());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.toString());

@@ -30,7 +30,6 @@ public class DatabaseTask {
         String maxTaskId = "T00000001";
         String sqlSearch = "SELECT MAX(TaskId) AS maxID FROM Task";
         String sqlInsert = "INSERT INTO Task(TaskId,TaskName,TaskRemark,TaskStartDate,TaskEndDate) VALUES(?,?,?,?,?)";
-
         try {
             connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement(sqlSearch);
@@ -46,12 +45,20 @@ public class DatabaseTask {
                     maxTaskId = "T" + String.format("%08d", tmp);
                 }
             }
+            SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
+
             preparedStatement = connection.prepareStatement(sqlInsert);
             preparedStatement.setString(1, maxTaskId);
             preparedStatement.setString(2, task.getTaskName());
             preparedStatement.setString(3, task.getTaskRemark());
             preparedStatement.setString(4, task.getTaskStartDate());
-            preparedStatement.setString(5, task.getTaskEndDate());
+            try {
+                preparedStatement.setDate(5, new Date(sdf.parse(task.getTaskEndDate()).getTime()));
+            } catch (ParseException e) {
+                System.out.println(e.toString());
+                System.out.println("日期格式错误");
+            }
+            System.out.println(preparedStatement.toString()); // test==================
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.toString());
@@ -209,6 +216,15 @@ public class DatabaseTask {
                 }
                 if ((tmp = resultSet.getString(2)) != null) {
                     newTask.setTaskName(tmp);
+                }
+                if((tmp=resultSet.getString(3))!=null){
+                    newTask.setTaskRemark(tmp);
+                }
+                if((tmp=resultSet.getString(4))!=null){
+                    newTask.setTaskStartDate(tmp);
+                }
+                if((tmp=resultSet.getString(5))!=null){
+                    newTask.setTaskEndDate(tmp);
                 }
                 tasks.add(newTask);
             }

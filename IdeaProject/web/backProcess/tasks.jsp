@@ -1,8 +1,6 @@
-<%@ page import="com.Model.Entity.Department" %>
+<%@ page import="com.Model.Entity.Task" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.Model.function.DepartmentProcess" %>
-<%@ page import="com.Model.Entity.Project" %>
-<%@ page import="com.Model.function.ProjectProcess" %>
+<%@ page import="com.Model.function.TaskProcess" %>
 <%--
   Created by IntelliJ IDEA.
   User: voghost
@@ -32,48 +30,49 @@
 
 <body>
 <%
-    ProjectProcess projectProcess = new ProjectProcess();
-    ArrayList<Project> projects = projectProcess.getAllProject();
+    TaskProcess taskProcess = new TaskProcess();
+    ArrayList<Task> tasks = taskProcess.getAllTask();
 %>
 
 <!-- MainForm -->
 <div id="MainForm">
     <div class="form_boxA">
-        <h2>公司所有项目</h2>
+        <h2>任务</h2>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th>序号</th>
-                <th>项目编号</th>
-                <th>项目名称</th>
-                <th>项目文件编号</th>
-                <th>项目描述</th>
-                <th>项目涉及人数</th>
+                <th>任务编号</th>
+                <th>任务名称</th>
+                <th>任务描述</th>
+                <th>任务开始时间</th>
+                <th>任务截止时间</th>
+                <th>任务涉及人数</th>
                 <th>管理</th>
             </tr>
 
             <%
-                System.out.println(projects.size());
-                for (int i = 0; i < projects.size(); i++) {
+                System.out.println(tasks.size());
+                for (int i = 0; i < tasks.size(); i++) {
             %>
             <tr>
                 <td><%out.println(i+1);%></td>
-                <td><%out.println(projects.get(i).getProjectId());%></td>
-                <td><%out.println(projects.get(i).getProjectName());%></td>
-                <td><%out.println(projects.get(i).getProjectPathId());%></td>
-                <td><%out.println(projects.get(i).getProjectRemark());%></td>
-                <td><%out.println(projectProcess.getNumOfProject(projects.get(i)));%></td>
+                <td><%out.println(tasks.get(i).getTaskId());%></td>
+                <td><%out.println(tasks.get(i).getTaskName());%></td>
+                <td><%out.println(tasks.get(i).getTaskRemark());%></td>
+                <td><%out.println(tasks.get(i).getTaskStartDate());%></td>
+                <td><%out.println(tasks.get(i).getTaskEndDate());%></td>
+                <td><%out.println(taskProcess.getNumOfTask(tasks.get(i)));%></td>
                 <form action="../deleteEntityServlet" method="post">
-                    <input type="hidden" name="entityType" value="project"/>
-                    <input type="hidden" name="deleteSection" value="<%out.print(projects.get(i).getProjectId());%>"/>
+                    <input type="hidden" name="entityType" value="task"/>
+                    <input type="hidden" name="deleteSection" value="<%out.print(tasks.get(i).getTaskId());%>"/>
                     <td><input type="submit" value="删除" onClick="return confirm('删除后将无法恢复,确定要删除?')" ></td>
                 </form>
-
             </tr>
             <%
                 }
             %>
         </table>
-        <p class="msg">共找到<%out.println(projects.size());%>条记录</p>
+        <p class="msg">共找到<%out.println(tasks.size());%>条记录，当前显示从第1条至第10条</p>
     </div>
 </div>
 <!-- /MainForm -->
