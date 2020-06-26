@@ -1,6 +1,6 @@
-<%@ page import="com.Model.Entity.Department" %>
+<%@ page import="com.Model.Entity.Staff" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.Model.function.DepartmentProcess" %>
+<%@ page import="com.Model.function.StaffProcess" %>
 <%--
   Created by IntelliJ IDEA.
   User: voghost
@@ -30,8 +30,8 @@
 
 <body>
 <%
-    DepartmentProcess departmentProcess = new DepartmentProcess();
-    ArrayList<Department> departments = departmentProcess.getAllDepartment();
+    StaffProcess staffProcess = new StaffProcess();
+    ArrayList<Staff> staffs = staffProcess.getAllStaff();
 %>
 
 <!-- MainForm -->
@@ -48,21 +48,21 @@
             </tr>
 
             <%
-                System.out.println(departments.size());
-                for (int i = 0; i < departments.size(); i++) {
+                System.out.println(staffs.size());
+                for (int i = 0; i < staffs.size(); i++) {
             %>
             <tr>
                 <td><%out.println(i+1);%></td>
-                <td><%out.println(departments.get(i).getDepartmentId());%></td>
-                <td><%out.println(departments.get(i).getDepartmentName());%></td>
-                <td><%out.println(departments.get(i).getDepartmentAddress());%></td>
-                <td><%out.println(departmentProcess.getNumOfStaff(departments.get(i)));%></td>
+                <td><%out.println(staffs.get(i).getStaffId());%></td>
+                <td><%out.println(staffs.get(i).getStaffName());%></td>
+                <td><%out.println(staffs.get(i).getStaffPhone());%></td>
+                <td><%out.println(staffProcess.getNumOfStaff(staffs.get(i)));%></td>
             </tr>
             <%
                 }
             %>
         </table>
-        <p class="msg">共找到<%out.println(departments.size());%>条记录，当前显示从第1条至第10条</p>
+        <p class="msg">共找到<%out.println(staffs.size());%>条记录，当前显示从第1条至第10条</p>
     </div>
 </div>
 <!-- /MainForm -->

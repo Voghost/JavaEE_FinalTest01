@@ -125,7 +125,7 @@
                 <dd>
                     <img class="coin11" src="img/coin111.png" />
                     <img class="coin22" src="img/coin222.png" />
-                    <a href="newDepartment.jsp" target="main" class="cks">所有员工</a>
+                    <a href="staffs.jsp" target="main" class="cks">所有员工</a>
                     <img class="icon5" src="img/coin21.png" />
                 </dd>
                 <dd>
