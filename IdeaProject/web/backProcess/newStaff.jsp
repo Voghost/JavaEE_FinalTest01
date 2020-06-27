@@ -1,10 +1,17 @@
-<%--
+<%@ page import="com.Model.function.SessionProcess" %><%--
   Created by IntelliJ IDEA.
   User: voghost
   Date: 2020/6/26
   Time: 上午9:11
   To change this template use File | Settings | File Templates.
 --%>
+<%
+    SessionProcess sessionProcess=new SessionProcess(request,response);
+    if(!sessionProcess.hasSession()){
+        response.sendRedirect("../login.jsp");
+        return ;
+    }
+%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -72,7 +79,7 @@
                         <th>员工姓名 <span class="f_cB">*</span></th>
                         <td>
                             <div class="txtbox floatL" style="width:200px;">
-                                <input name="staffName" type="text" size="20" placeholder="员工名字">
+                                <input name="staffName" type="text" size="20" placeholder="员工名字" id="staffName">
                             </div>
                         </td>
                     </tr>
@@ -81,27 +88,27 @@
                         <th>员工电话 <span class="f_cB">*</span></th>
                         <td>
                             <div class="txtbox floatL" style="width:700px;">
-                                <input name="staffPhone" type="text" size="95" placeholder="员工电话">
+                                <input name="staffPhone" type="text" size="95" placeholder="员工电话" id="staffPhone">
                             </div>
                         </td>
 
                     </tr>
 
-                    <tr>
-                        <th>员工选择的文件路径 <span class="f_cB">*</span></th>
-                        <td>
-                            <div class="txtbox floatL" style="width:700px;">
-                                <input name="staffFilePath" type="text" size="95" placeholder="文件路径">
-                            </div>
-                        </td>
+<%--                    <tr>--%>
+<%--                        <th>员工选择的文件路径 <span class="f_cB">*</span></th>--%>
+<%--                        <td>--%>
+<%--                            <div class="txtbox floatL" style="width:700px;">--%>
+<%--                                <input name="staffFilePath" type="text" size="95" placeholder="文件路径" id="staffFilePath">--%>
+<%--                            </div>--%>
+<%--                        </td>--%>
 
-                    </tr>
+<%--                    </tr>--%>
 
                     <tr>
                         <th>密码 <span class="f_cB">*</span></th>
                         <td>
                             <div class="txtbox floatL" style="width:700px;">
-                                <input name="staffPassword" type="password" size="95" placeholder="密码">
+                                <input name="staffPassword" type="password" size="95" placeholder="密码" id="staffPassword">
                             </div>
                         </td>
 
@@ -116,13 +123,25 @@
             <div class="btn_boxB floatR mag_l20"><input name="" type="reset" value="取消"
                                                         onmousemove="this.className='input_move'"
                                                         onmouseout="this.className='input_out'"></div>
-            <div class="btn_box floatR"><input name="" type="submit" value="提交"
+            <div class="btn_box floatR"><input name="" type="submit" value="提交" onclick="return check()"
                                                onmousemove="this.className='input_move'"
                                                onmouseout="this.className='input_out'"></div>
         </div>
     </div>
     <!-- /Popup -->
 </form>
+
+<script type="text/javascript">
+    function check() {
+        if(document.getElementById("staffName").value==""||document.getElementById("staffPassword").value==""){
+            alert("输入不能为空")
+            return false
+        }else{
+            return true
+        }
+    }
+</script>
+
 <%--
 <iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
 --%>

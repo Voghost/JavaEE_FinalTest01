@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.Model.function.SessionProcess" %><%--
   Created by IntelliJ IDEA.
   User: voghost
   Date: 2020/6/26
@@ -26,7 +26,13 @@
     <![endif]-->
 </head>
 <body>
-
+<%
+    SessionProcess sessionProcess=new SessionProcess(request,response);
+    if(!sessionProcess.hasSession()){
+        response.sendRedirect("../login.jsp");
+        return ;
+    }
+%>
 
 <form action="../newEntityServlet" method="post">
     <input type="hidden" name="entityType" value="department"/>

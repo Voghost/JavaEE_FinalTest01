@@ -1,10 +1,17 @@
-<%--
+<%@ page import="com.Model.function.SessionProcess" %><%--
   Created by IntelliJ IDEA.
   User: voghost
   Date: 2020/6/26
   Time: 上午9:11
   To change this template use File | Settings | File Templates.
 --%>
+<%
+    SessionProcess sessionProcess=new SessionProcess(request,response);
+    if(!sessionProcess.hasSession()){
+        response.sendRedirect("../login.jsp");
+        return ;
+    }
+%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

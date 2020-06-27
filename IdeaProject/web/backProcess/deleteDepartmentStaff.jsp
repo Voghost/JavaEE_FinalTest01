@@ -1,13 +1,21 @@
 <%@ page import="com.Model.Entity.Department" %>
 <%@ page import="com.Model.Database.DatabaseStaffDepartment" %>
 <%@ page import="com.Model.Entity.Staff" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.Model.function.SessionProcess" %><%--
   Created by IntelliJ IDEA.
   User: voghost
   Date: 2020/6/26
   Time: 下午8:42
   To change this template use File | Settings | File Templates.
 --%>
+<%
+    SessionProcess sessionProcess=new SessionProcess(request,response);
+    if(!sessionProcess.hasSession()){
+        response.sendRedirect("../login.jsp");
+        return ;
+    }
+%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

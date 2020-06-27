@@ -11,7 +11,7 @@
  // head.html 的弹出框 JS  end
 
 
-// left.html 的切换节点  JS
+// left_manager.html 的切换节点  JS
 $(function(){
 	// 点击展开事件，切换图片
 	$(".leftsidebar_box dt").click(function(){
@@ -58,4 +58,4 @@ $(function(){
 		
 	});
 })
-// left.html 的切换节点  JS end
+// left_manager.html 的切换节点  JS end

@@ -1,10 +1,17 @@
-<%--
+<%@ page import="com.Model.function.SessionProcess" %><%--
   Created by IntelliJ IDEA.
   User: voghost
   Date: 2020/6/26
   Time: 上午9:11
   To change this template use File | Settings | File Templates.
 --%>
+<%
+    SessionProcess sessionProcess=new SessionProcess(request,response);
+    if(!sessionProcess.hasSession()){
+        response.sendRedirect("../login.jsp");
+        return ;
+    }
+%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -76,17 +83,6 @@
                             </div>
                         </td>
                     </tr>
-
-                    <tr>
-                        <th>项目文件地址 <span class="f_cB">*</span></th>
-                        <td>
-                            <div class="txtbox floatL" style="width:700px;">
-                                <input name="ProjectPathId" type="text" size="95" placeholder="项目文件编号">
-                            </div>
-                        </td>
-
-                    </tr>
-
                     <tr>
                         <th>备注 <span class="f_cB">*</span></th>
                         <td>

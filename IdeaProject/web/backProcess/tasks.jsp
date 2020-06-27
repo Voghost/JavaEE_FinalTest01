@@ -1,6 +1,7 @@
 <%@ page import="com.Model.Entity.Task" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.Model.function.TaskProcess" %>
+<%@ page import="com.Model.function.SessionProcess" %>
 <%--
   Created by IntelliJ IDEA.
   User: voghost
@@ -8,6 +9,14 @@
   Time: 上午9:15
   To change this template use File | Settings | File Templates.
 --%>
+<%
+    SessionProcess sessionProcess=new SessionProcess(request,response);
+    if(!sessionProcess.hasSession()){
+        response.sendRedirect("../login.jsp");
+        return ;
+    }
+%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">

@@ -1,10 +1,27 @@
-<%--
+<%@ page import="com.Model.function.SessionProcess" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.Model.Entity.Staff" %>
+<%@ page import="com.Model.Database.DatabaseStaff" %><%--
   Created by IntelliJ IDEA.
   User: voghost
   Date: 2020/6/26
   Time: 上午9:10
   To change this template use File | Settings | File Templates.
 --%>
+<%
+    SessionProcess sessionProcess=new SessionProcess(request,response);
+    if(!sessionProcess.hasSession()){
+        response.sendRedirect("../login.jsp");
+        return ;
+    }
+
+    String userName;
+    DatabaseStaff databaseStaff=new DatabaseStaff();
+    ArrayList<Staff> staffs=databaseStaff.searchStaff(sessionProcess.getUserName(),1);
+    userName=staffs.get(0).getStaffName();
+
+
+%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -24,6 +41,9 @@
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
+    <style>
+        .imgMiddle{text-align:center}
+    </style>
 </head>
 
 <body>
@@ -65,158 +85,27 @@
         <!-- MainForm -->
         <div id="MainForm">
             <div class="form_boxB">
-                <h2>2017-11月费用列表</h2>
+                <h2><font size="10">欢迎你<%out.println(userName);%></font> </h2>
                 <table cellpadding="0" cellspacing="0">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
                     <tr>
-                        <td colspan="10" class="info_boxA">部门：人力资源部　　类别：费用类　　日期：2017-11　　预测总额：46150.00元</td>
-                    </tr>
-                    <tr>
-                        <th>序号</th>
-                        <th>提交人</th>
-                        <th>科目</th>
-                        <th>预测金额（元）</th>
-                        <th>总计（元）</th>
-                        <th>状态</th>
-                        <th>审核人</th>
-                        <th>审核时间</th>
-                        <th>备注</th>
-                        <th>操作</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>张三</td>
-                        <td>市内交通费</td>
-                        <td class="money">11000.00</td>
-                        <td class="money">45150.00</td>
-                        <td class="f_cA">通过</td>
-                        <td>管理1</td>
-                        <td>2017-11-11 09:58:45</td>
-                        <td>&nbsp;</td>
-                        <td class="last"><a href="#">驳回</a></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="5">2</td>
-                        <td rowspan="5">李四</td>
-                        <td>市内交通费</td>
-                        <td class="money">14000.00</td>
-                        <td rowspan="5" class="money">45010.00</td>
-                        <td rowspan="5" class="f_cA">通过</td>
-                        <td rowspan="5">管理2</td>
-                        <td rowspan="5">2017-11-11 09:58:45</td>
-                        <td rowspan="5">&nbsp;</td>
-                        <td rowspan="5" class="last"><a href="#">驳回</a></td>
-                    </tr>
-                    <tr>
-                        <td>市内交通费</td>
-                        <td class="money">13010.00</td>
-                    </tr>
-                    <tr>
-                        <td>市内交通费</td>
-                        <td class="money">12000.00</td>
-                    </tr>
-                    <tr>
-                        <td>市内交通费</td>
-                        <td class="money">12000.00</td>
-                    </tr>
-                    <tr>
-                        <td>市内交通费</td>
-                        <td class="money">12000.00</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>王五</td>
-                        <td>市内交通费</td>
-                        <td class="money">12200.00</td>
-                        <td class="money">45010.00</td>
-                        <td class="f_cA">通过</td>
-                        <td>管理3</td>
-                        <td>2017-11-11 09:58:45</td>
-                        <td>&nbsp;</td>
-                        <td class="last"><a href="#">驳回</a></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>赵六</td>
-                        <td>市内交通费</td>
-                        <td class="money">1230.00</td>
-                        <td class="money">41150.00</td>
-                        <td class="f_cA">通过</td>
-                        <td>管理4</td>
-                        <td>2017-11-11 09:58:45</td>
-                        <td>&nbsp;</td>
-                        <td class="last"><a href="#">驳回</a></td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>王八</td>
-                        <td>市内交通费</td>
-                        <td class="money">12040.00</td>
-                        <td class="money">4150.00</td>
-                        <td class="f_cA">通过</td>
-                        <td>管理5</td>
-                        <td>2017-11-11 09:58:45</td>
-                        <td>&nbsp;</td>
-                        <td class="last"><a href="#">驳回</a></td>
+                      <div class="imgMiddle">
+                          <img src="../images/main_1.gif" width="512" align="middle" />
+                      </div>
                     </tr>
                 </table>
-                <p class="msg">共找到47条年度预算记录，当前显示从第1条至第10条</p>
             </div>
         </div>
         <!-- /MainForm -->
 
 
-        <!-- BtmMain -->
-        <div id="BtmMain">
-            <span class="ttl">全部审批</span>
-
-            <!-- txtbox -->
-            <div class="txtbox floatL mag_r20">
-                <span class="sttl">审核时间：</span>
-                <input name="" type="text" size="8">
-            </div>
-            <!-- /txtbox -->
-
-            <!-- txtbox -->
-            <div class="txtbox floatL mag_r20">
-                <span class="sttl">审核人：</span>
-                <input name="" type="text" size="8">
-            </div>
-            <!-- /txtbox -->
-
-            <!-- btn_box -->
-            <div class="btn_box floatR mag_l20"><input name="" type="button" value="返回列表" onMouseMove="this.className='input_move'" onMouseOut="this.className='input_out'"></div>
-            <!-- /btn_box -->
-
-            <!-- btn_box -->
-            <div class="btn_box floatR mag_l20"><input name="" type="button" value="驳回" onMouseMove="this.className='input_move'" onMouseOut="this.className='input_out'"></div>
-            <!-- /btn_box -->
-
-            <!-- btn_box -->
-            <div class="btn_box floatR mag_l20"><input name="" type="button" value="通过" onMouseMove="this.className='input_move'" onMouseOut="this.className='input_out'"></div>
-            <!-- /btn_box -->
-        </div>
-        <!-- /BtmMain -->
-
-        <!-- PageNum -->
-        <ul id="PageNum">
-            <li><a href="#">首页</a></li>
-            <li><a href="#">上一页</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">6</a></li>
-            <li><a href="#">下一页</a></li>
-            <li><a href="#">尾页</a></li>
-        </ul>
-        <!-- /PageNum -->
-    </div>
-    <!-- /Contents -->
-
-    <!-- /footer -->
     <footer>
-        <address>2007 Corporation,All Rights</address>
+        <address>2020 Corporation,All Rights, PowerBy HuangZiyi, LiuLingfeng</address>
     </footer>
     <!-- /footer -->
 

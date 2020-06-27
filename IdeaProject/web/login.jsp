@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.Model.function.SessionProcess" %><%--
   Created by IntelliJ IDEA.
   User: voghost
   Date: 2020/6/25
@@ -12,13 +12,27 @@
     <link rel="stylesheet" href="css/style.css" type="text/css" media="all"/>
 </head>
 <body>
+<%
+    SessionProcess sessionProcess = new SessionProcess(request, response);
+    sessionProcess.deleteSession();
+%>
+
+
 <%--主要背景--%>
 <div class="main-bg" id="mian">
     <span style="color:black; font-size:large; font-weight: bold">
 
-    <%if(request.getAttribute("error")!=null){
-        out.println(request.getAttribute("error")+"<br/>");
-    }%>
+    <%
+        if (request.getAttribute("error") != null) {
+            out.println(request.getAttribute("error") + "<br/>");
+            request.removeAttribute("error");
+        }
+        if(request.getAttribute("message")!=null){
+            out.println(request.getAttribute("message") + "<br/>");
+            request.removeAttribute("message");
+        }
+
+    %>
     </span>
     <h1 id="head-font">后台管理系统</h1>
     <div class="sub-main-w3">
@@ -31,12 +45,12 @@
                         <h3 class="legend">账号登录</h3>
                         <div class="input">
                             <span class="fa fa-envelope-o" aria-hidden="true"></span>
-                            <input type="text"  placeholder="账号" name="userName" required/>
+                            <input type="text" placeholder="账号" name="userName" id="userIsNull" required/>
                         </div>
                         <div class="input">
                             <span class="fa fa-key" aria-hidden="true"></span>
                             <input type="password" v-model="logindata.password" placeholder="密码" name="password"
-                                   required/>
+                                   id="passwordIsNull" required/>
                         </div>
                         <button type="submit" class="btn submit">登 录</button>
                         <!--<a href="#" class="bottom-text-w3ls">忘记密码?</a>-->
@@ -48,22 +62,29 @@
                 <label for="option2" class="icon-left-w3pvt"><span class="fa fa-pencil-square"
                                                                    aria-hidden="true"></span>注册</label>
                 <article>
-                    <form action="#" method="post">
+                    <form action="registerHandlerServlet" method="post">
                         <h3 class="legend">注册帐户</h3>
                         <div class="input">
                             <span class="fa fa-user-o" aria-hidden="true"></span>
-                            <input type="text" v-model="registerdata.name" placeholder="用户名" name="name" required/>
+                            <input type="text" v-model="registerdata.name" placeholder="用户名" name="name" id="rUser"
+                                   required/>
+                        </div>
+                        <div class="input">
+                            <span class="fa fa-user-o" aria-hidden="true"></span>
+                            <input type="text" placeholder="电话" name="phone" id="rUser"
+                                   required/>
                         </div>
                         <div class="input">
                             <span class="fa fa-key" aria-hidden="true"></span>
-                            <input type="password" placeholder="密码" name="password"  id="password"  required/>
+                            <input type="password" placeholder="密码" name="password" id="password" required/>
                         </div>
                         <div class="input">
                             <span class="fa fa-key" aria-hidden="true"></span>
-                            <input type="password" placeholder="确认密码" name="confirmPassword"  id="password_check" required/>
+                            <input type="password" placeholder="确认密码" name="confirmPassword" id="password_check"
+                                   required/>
                             <span id="warning"></span>
                         </div>
-                        <button type="submit" class="btn submit" onclick="check()">注 册</button>
+                        <button type="submit" class="btn submit" onclick="return check()">注 册</button>
                     </form>
                 </article>
             </div>
@@ -75,13 +96,13 @@
 </body>
 <script>
     function check() {
-        if(document.getElementById("password").value!=document.getElementById("password_check").value){
-            document.getElementById("warning").innerHTML= "两次秘密输入不一致";
+        if (document.getElementById("password").value != document.getElementById("password_check").value) {
+            alert("两次密码不一致")
             return false
-        }else{
-            document.getElementById("warning").innerHTML="    ";
+        } else {
             return true
         }
     }
 </script>
+
 </html>

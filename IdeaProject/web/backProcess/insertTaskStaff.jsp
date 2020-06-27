@@ -3,7 +3,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.Model.Entity.Staff" %>
 <%@ page import="com.Model.Entity.Task" %>
-<%@ page import="com.Model.Database.DatabaseStaffTask" %><%--
+<%@ page import="com.Model.Database.DatabaseStaffTask" %>
+<%@ page import="com.Model.function.SessionProcess" %><%--
   Created by IntelliJ IDEA.
   User: voghost
   Date: 2020/6/26
@@ -11,6 +12,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    SessionProcess sessionProcess=new SessionProcess(request,response);
+    if(!sessionProcess.hasSession()){
+        response.sendRedirect("../login.jsp");
+        return ;
+    }
+%>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
