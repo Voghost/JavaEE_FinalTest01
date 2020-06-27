@@ -19,10 +19,10 @@ public class DatabaseFolder {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
-    //插入数据
-    public int insertFolder(Folder folder) {
+    //插入数据 (返回文件ID）
+    public String insertFolder(Folder folder) {
         String maxFolderId = "F00001";
-        String sqlSearch = "SELECT MAX(FolderId) AS maxID FROM Folder";
+        String sqlSearch = "SELECT MAX(FolderId) AS maxID FROM folder";
         String sqlInsert = "INSERT INTO folder(FolderId,FolderPath,FolderRemark) VALUES(?,?,?)";
 
         try {
@@ -47,8 +47,12 @@ public class DatabaseFolder {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.toString());
+            return null;
+        } finally {
+            closeProcess(connection,resultSet,preparedStatement);
         }
-        return 1;
+
+        return maxFolderId;
     }
 
     //修改数据
@@ -190,6 +194,34 @@ public class DatabaseFolder {
         }
         return folders;
     }
+
+    //查找数据(通过文件编号)
+    public Folder searchFolder(String folderId){
+        System.out.println(folderId) ; //测试=======================test
+        Folder folder =new Folder();
+        String sql="SELECT * FROM folder WHERE FolderId=? ";
+        try{
+            connection=dataSource.getConnection();
+            preparedStatement=connection.prepareStatement(sql);
+            preparedStatement.setString(1,folderId);
+            resultSet=preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                folder.setFolderId(resultSet.getString(1));
+                folder.setFolderPath(resultSet.getString(2));
+                folder.setFolderRemark(resultSet.getString(3));
+            }
+
+
+        }catch (SQLException e){
+            System.out.println("通过文件编号"+e.toString());
+            return null;
+        }finally {
+            closeProcess(connection,resultSet,preparedStatement);
+        }
+        return folder;
+    }
+
 
     //包装了关闭函数，用于关闭数据库相关的连接
     public int closeProcess(Connection connection,ResultSet resultSet,PreparedStatement preparedStatement){

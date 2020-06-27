@@ -15,10 +15,10 @@ public class DetermineAccount {
 
     public DetermineAccount(Staff staff){
        if(staff.getStaffId()==null){
-           this.staff.setStaffId("");
+           staff.setStaffId("");
        }
        if(staff.getStaffPassword()==null){
-          this.staff.setStaffPassword("");
+          staff.setStaffPassword("");
        }
        this.staff=new Staff();
        this.staff.setStaffId(staff.getStaffId());
@@ -34,25 +34,26 @@ public class DetermineAccount {
      */
     public int determine(){
         int flag=0;
-        ArrayList<Staff> staffs;
+        ArrayList<Staff> staffs=new ArrayList<Staff>();
         DatabaseStaff databaseStaff=new DatabaseStaff();
+
         //第一次判断是否用用户
         staffs=databaseStaff.searchStaff(staff.getStaffId(),1);
         if(staffs==null){
             return -1; //如果返回空值，出现错误
         }
+        if(staffs.size()==0){
+            return 0; //账号错误
+        }
         if(staffs.size()>1){
-           flag=1;
+           flag=1; //存在账户
         }
 
         //第二次判断密码是否正确
-        staffs=databaseStaff.searchStaff(staff);
-        staff=staffs.get(0);
-
-        if(staffs.size()>=1){
-            DatabaseDepartment databaseDepartment=new DatabaseDepartment();
-            flag=2; // 为普通用户
+        if(staffs.get(0).getStaffPassword().equals(staff.getStaffPassword())){
+            flag=2;
         }
+        System.out.println(staffs.toString());
         return flag;
     }
 }

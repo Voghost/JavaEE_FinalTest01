@@ -170,6 +170,37 @@ public class DatabaseStaffProject {
         }
         return staffs;
     }
+    //查找(员工拥有的所有项目)
+    public ArrayList<Project>  searchProjectsForStaff(Staff staff){
+        ArrayList<Project> projects =new ArrayList<Project>();
+        try{
+            String sql="SELECT * FROM  project WHERE ProjectId IN(SELECT ProjectId FROM staff_project WHERE StaffId=? )";
+            connection=dataSource.getConnection();
+            preparedStatement=connection.prepareStatement(sql);
+            preparedStatement.setString(1,staff.getStaffId());
+            resultSet=preparedStatement.executeQuery();
+            int countOfResult=0;
+
+            while(resultSet.next()){
+                Project newProject=new Project();
+                newProject.setProjectId(resultSet.getString(1));
+                newProject.setProjectName(resultSet.getString(2));
+                newProject.setProjectPathId(resultSet.getString(3));
+                newProject.setProjectRemark(resultSet.getString(4));
+                projects.add(newProject);
+                countOfResult++;
+            }
+            if(countOfResult==0){
+                return new ArrayList<Project>();
+            }
+        }catch (SQLException e){
+            System.out.println(e.toString());
+            return  null;
+        }finally {
+            closeProcess(connection,resultSet,preparedStatement);
+        }
+        return projects;
+    }
 
     //包装了关闭函数，用于关闭数据库相关的连接
     public int closeProcess(Connection connection, ResultSet resultSet, PreparedStatement preparedStatement) {

@@ -35,7 +35,7 @@ public class NewEntityServlet extends HttpServlet {
             //            out.println("添加成功");
         }else if(entityType.equals("staff")){
             StaffProcess staffProcess=new StaffProcess();
-            Staff staff=new Staff(null,request.getParameter("staffName"),request.getParameter("staffPhone"),null,"staffPassword");
+            Staff staff=new Staff(null,request.getParameter("staffName"),request.getParameter("staffPhone"),null,request.getParameter("staffPassword"));
             staffProcess.newStaff(staff);
             response.sendRedirect("backProcess/staffs.jsp");
             //           out.println("添加成功");

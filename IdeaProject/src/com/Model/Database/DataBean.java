@@ -13,7 +13,7 @@ public class DataBean {
         dataSource=new BasicDataSource();
 
          String URL ="jdbc:mysql://voghost-server.mysql.rds.aliyuncs.com:3306/business_management?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true";
-         String URL1 ="jdbc:mysql://127.0.0.1:3306/bsm?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true";
+         String URL1 ="jdbc:mysql://127.0.0.1:3306/bsmtest?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true";
 
          String userName1="user_bm";
          String password1="Lf@1141776830";

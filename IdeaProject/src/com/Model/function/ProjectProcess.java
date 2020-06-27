@@ -39,7 +39,32 @@ public class ProjectProcess {
     //插入一条项目数据
     public int newProject(Project project){
         DatabaseProject databaseProject=new DatabaseProject();
-        databaseProject.insertProject(project);
+        DatabaseFolder databaseFolder = new DatabaseFolder();
+
+        String projectId=databaseProject.insertProject(project);
+        project.setProjectId(projectId);
+        String path="projectFiles/"+project.getProjectId()+"-"+project.getProjectName();
+        String folderId=databaseFolder.insertFolder(new Folder(null,path,null));
+        project.setProjectPathId(folderId);
+        databaseProject.updateProject(project);
+
+
+
+
+//        DatabaseStaff databaseStaff = new DatabaseStaff();
+//        DatabaseFolder databaseFolder = new DatabaseFolder();
+//        //添加员工并返回值
+//        String staffId=databaseStaff.insertStaff(staff);
+//        //更新staff对象的id
+//        staff.setStaffId(staffId);
+//        String path = "staffFiles/" + staff.getStaffId();
+//        String folderId = databaseFolder.insertFolder(new Folder(null, path, null));
+//        //更新staff对象的路径
+//        staff.setStaffFileID(folderId);
+//        //修改数据
+//        databaseStaff.updateStaff(staff);
+//
+
         return 1;
     }
 

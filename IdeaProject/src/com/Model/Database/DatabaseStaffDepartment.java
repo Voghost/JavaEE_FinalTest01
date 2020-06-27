@@ -32,6 +32,8 @@ public class DatabaseStaffDepartment {
         }catch(SQLException e){
             System.out.println(e.toString());
             return -1; //-1 插入失败
+        }finally {
+            closeProcess(connection,resultSet,preparedStatement);
         }
         return 1;
     }
@@ -165,6 +167,63 @@ public class DatabaseStaffDepartment {
             closeProcess(connection,resultSet,preparedStatement);
         }
         return staffs;
+    }
+
+    //查找(员工拥有的所有部门)
+    public ArrayList<Department>  searchDepartmentsForStaff(Staff staff){
+        ArrayList<Department> departments =new ArrayList<Department>();
+        try{
+            String sql="SELECT * FROM  department WHERE DepartmentId IN(SELECT DepartmentId FROM staff_department WHERE StaffId=? )";
+            connection=dataSource.getConnection();
+            preparedStatement=connection.prepareStatement(sql);
+            preparedStatement.setString(1,staff.getStaffId());
+            resultSet=preparedStatement.executeQuery();
+            int countOfResult=0;
+
+            while(resultSet.next()){
+                Department newDepartment=new Department();
+                newDepartment.setDepartmentId(resultSet.getString(1));
+                newDepartment.setDepartmentName(resultSet.getString(2));
+                newDepartment.setDepartmentAddress(resultSet.getString(3));
+                departments.add(newDepartment);
+                countOfResult++;
+            }
+            System.out.println("countOfResult : "+countOfResult);
+            if(countOfResult==0){
+                return new ArrayList<Department>();
+            }
+
+
+
+        }catch (SQLException e){
+            System.out.println(e.toString());
+            return  null;
+        }finally {
+            closeProcess(connection,resultSet,preparedStatement);
+        }
+        return departments;
+    }
+
+    //是否行政部门
+    public boolean isManagerDepartment(Staff staff){
+        boolean flag=false;
+        try{
+            String sql="SELECT * FROM staff_department where StaffId=? AND departmentId=? ";
+            connection=dataSource.getConnection();
+            preparedStatement=connection.prepareStatement(sql);
+            preparedStatement.setString(1,staff.getStaffId());
+            preparedStatement.setString(2,"D001");
+            resultSet=preparedStatement.executeQuery();
+
+            if(resultSet.next()){
+                flag=true;
+            }
+        }catch (SQLException e){
+            System.out.println(e.toString());
+        }finally {
+            closeProcess(connection,resultSet,preparedStatement);
+        }
+        return flag;
     }
 
     //包装了关闭函数，用于关闭数据库相关的连接

@@ -19,11 +19,12 @@ public class DatabaseStaff {
 	ResultSet resultSet = null;
 
 	// 插入数据
-	public int insertStaff(Staff staff) {
+	public String insertStaff(Staff staff) {
 
 		String maxStaffId = "S00001";
 		String sqlSearch = "SELECT MAX(StaffId) AS maxID FROM staff";
 		String sqlInsert = "INSERT INTO staff(StaffId,StaffName,StaffPhone,StaffPassword) VALUES(?,?,?,?)";
+		System.out.println("插入数据" + staff.toString());
 
 		try {
 			connection = dataSource.getConnection();
@@ -51,7 +52,7 @@ public class DatabaseStaff {
 		} finally {
 			closeProcess(connection, resultSet, preparedStatement);
 		}
-		return 1;
+		return maxStaffId;
 	}
 
 	// 修改数据
@@ -66,7 +67,7 @@ public class DatabaseStaff {
 
 			}
 			if (staff.getStaffFileID() != null) {
-				preparedStatement = connection.prepareStatement("UPDATE staff SET StaffFileId=? WHERE StaffId=?");
+				preparedStatement = connection.prepareStatement("UPDATE staff SET StafFileId=? WHERE StaffId=?");
 				preparedStatement.setString(1, staff.getStaffFileID());
 				preparedStatement.setString(2, staff.getStaffId());
 				preparedStatement.executeUpdate();
@@ -80,7 +81,7 @@ public class DatabaseStaff {
 			}
 
 			if (staff.getStaffPassword() != null) {
-				preparedStatement = connection.prepareStatement("UPDATE Staff SET StaffPassword=? WHERE StaffId=?");
+				preparedStatement = connection.prepareStatement("UPDATE staff SET StaffPassword=? WHERE StaffId=?");
 				preparedStatement.setString(1, staff.getStaffPassword());
 				preparedStatement.setString(2, staff.getStaffId());
 				preparedStatement.executeUpdate();

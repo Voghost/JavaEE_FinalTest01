@@ -50,6 +50,8 @@ public class DatabaseStaffTask {
         } catch (SQLException e) {
             System.out.println(e.toString());
             return -1; //删除失败
+        }finally {
+            closeProcess(connection,resultSet,preparedStatement);
         }
         return 1;
     }
@@ -168,7 +170,41 @@ public class DatabaseStaffTask {
         }
         return staffs;
     }
+    //查找(员工拥有的所有任务)
+    public ArrayList<Task>  searchTaskForStaff(Staff staff){
+        ArrayList<Task> tasks=new ArrayList<Task>();
+        try{
+            String sql="SELECT * FROM  task WHERE TaskId IN(SELECT TaskId FROM staff_task WHERE StaffId=? )";
+            connection=dataSource.getConnection();
+            preparedStatement=connection.prepareStatement(sql);
+            preparedStatement.setString(1,staff.getStaffId());
+            resultSet=preparedStatement.executeQuery();
+            int countOfResult=0;
 
+            while(resultSet.next()){
+                Task newTask=new Task();
+                newTask.setTaskId(resultSet.getString(1));
+                newTask.setTaskName(resultSet.getString(2));
+                newTask.setTaskRemark(resultSet.getString(3));
+                newTask.setTaskStartDate(resultSet.getString(4));
+                newTask.setTaskEndDate(resultSet.getString(5));
+                countOfResult++;
+                tasks.add(newTask);
+            }
+            if(countOfResult==0){
+                return new ArrayList<Task>();
+            }
+
+
+
+        }catch (SQLException e){
+            System.out.println(e.toString());
+            return  null;
+        }finally {
+            closeProcess(connection,resultSet,preparedStatement);
+        }
+        return tasks;
+    }
     //包装了关闭函数，用于关闭数据库相关的连接
     public int closeProcess(Connection connection, ResultSet resultSet, PreparedStatement preparedStatement) {
         int flag = 1;

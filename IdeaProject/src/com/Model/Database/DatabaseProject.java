@@ -19,7 +19,7 @@ public class DatabaseProject {
     ResultSet resultSet = null;
 
     //插入数据
-    public int insertProject(Project project) {
+    public String insertProject(Project project) {
         String maxProjectId = "F0000001";
         String sqlSearch = "SELECT MAX(ProjectId) AS maxID FROM project";
         String sqlInsert = "INSERT INTO project(ProjectId,ProjectName,ProjectPathId,ProjectRemark) VALUES(?,?,?,?)";
@@ -47,10 +47,11 @@ public class DatabaseProject {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.toString());
+            return null;
         }finally {
             closeProcess(connection,resultSet,preparedStatement);
         }
-        return 1;
+        return maxProjectId;
     }
 
     //修改数据

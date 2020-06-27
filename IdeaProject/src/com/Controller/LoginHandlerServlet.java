@@ -1,8 +1,12 @@
 package com.Controller;
 
+import com.Model.Database.DatabaseDepartment;
 import com.Model.Database.DatabaseStaff;
+import com.Model.Database.DatabaseStaffDepartment;
+import com.Model.Entity.Department;
 import com.Model.Entity.Staff;
 import com.Model.function.DetermineAccount;
+import com.Model.function.SessionProcess;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,6 +34,16 @@ public class LoginHandlerServlet extends HttpServlet {
 
         //如果密码正确，导向loginSuccessFull.jsp
         if(judgeAccount==2){
+            DatabaseStaffDepartment databaseDepartment=new DatabaseStaffDepartment();
+
+            SessionProcess sessionProcess=new SessionProcess(request,response);
+            //如果是管理部门
+            if(databaseDepartment.isManagerDepartment(staff)){
+                sessionProcess.newSession(staff.getStaffId(),"manager");
+            }else{
+                //普通员工
+                sessionProcess.newSession(staff.getStaffId(),"staff");
+            }
             dispatcher=request.getRequestDispatcher("loginSuccessful.jsp");
             dispatcher.forward(request,response);
         }else if(judgeAccount<2&&judgeAccount>=0){
