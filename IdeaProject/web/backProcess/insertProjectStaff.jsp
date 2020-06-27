@@ -1,11 +1,11 @@
-<%@ page import="com.Model.Entity.Department" %>
-<%@ page import="com.Model.Database.DatabaseStaffDepartment" %>
-<%@ page import="com.Model.Entity.Staff" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="com.Model.Entity.Project" %>
+<%@ page import="com.Model.Database.DatabaseStaffProject" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.Model.Entity.Staff" %><%--
   Created by IntelliJ IDEA.
   User: voghost
   Date: 2020/6/26
-  Time: 下午8:42
+  Time: 下午5:07
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -29,14 +29,13 @@
     <![endif]-->
 </head>
 
-
 <body>
 <!-- Popup -->
 <div id="Popup">
 
 
-    <form action="../deleteConnectionToStaffServlet" method="post">
-        <input type="hidden" name="entityType" value="department">
+    <form action="../newConnectionToStaffServlet" method="post">
+        <input type="hidden" name="entityType" value="project">
         <!-- SubPopup -->
         <div id="SubPopup">
             <div class="form_boxD">
@@ -50,16 +49,16 @@
 
                     <%
 
-                        Department department = new Department();
-                        department.setDepartmentId(request.getParameter("sectionDepartment"));
-                        DatabaseStaffDepartment databaseStaffDepartment = new DatabaseStaffDepartment();
-                        ArrayList<Staff> staffs = databaseStaffDepartment.searchStaffInDepartment(department);
+                        Project project = new Project();
+                        project.setProjectId(request.getParameter("sectionProject"));
+                        DatabaseStaffProject databaseStaffProject = new DatabaseStaffProject();
+                        ArrayList<Staff> staffs = databaseStaffProject.searchStaffNoInProject(project);
                         for (int i = 0; i < staffs.size(); i++) {
                     %>
                     <tr>
                         <th>
                             <input name="staff" type="checkbox" value="<%out.print(staffs.get(i).getStaffId());%>">
-                            <input type="hidden" name="sectionDepartment" value="<% out.print(department.getDepartmentId());%>">
+                            <input type="hidden" name="sectionProject" value="<% out.print(project.getProjectId());%>">
                         </th>
                         <th><%out.print(staffs.get(i).getStaffId());%></th>
                         <td><%out.print(staffs.get(i).getStaffName());%></td>

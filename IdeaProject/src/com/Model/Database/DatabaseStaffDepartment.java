@@ -47,6 +47,8 @@ public class DatabaseStaffDepartment {
         }catch (SQLException e){
             System.out.println(e.toString());
             return -1; //删除失败
+        }finally {
+            closeProcess(connection,resultSet,preparedStatement);
         }
         return 1;
     }

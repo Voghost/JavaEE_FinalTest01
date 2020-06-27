@@ -98,7 +98,7 @@ public class DatabaseStaff {
 	public int deleteStaff(Staff staff) {
 		try {
 			connection = dataSource.getConnection();
-			preparedStatement = connection.prepareStatement("delete from Staff where staffId=?");
+			preparedStatement = connection.prepareStatement("delete from staff where staffId=?");
 			preparedStatement.setString(1, staff.getStaffId());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {

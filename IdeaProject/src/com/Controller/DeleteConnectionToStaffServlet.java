@@ -1,8 +1,12 @@
 package com.Controller;
 
 import com.Model.Database.DatabaseStaffDepartment;
+import com.Model.Database.DatabaseStaffProject;
+import com.Model.Database.DatabaseStaffTask;
 import com.Model.Entity.Department;
+import com.Model.Entity.Project;
 import com.Model.Entity.Staff;
+import com.Model.Entity.Task;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,10 +40,38 @@ public class DeleteConnectionToStaffServlet extends HttpServlet {
                 for(int i=0;i<staffIds.length;i++){
                     staff.setStaffId(staffIds[i]);
                     databaseStaffDepartment.deleteStaffToDepartment(staff,department) ;
-                    response.sendRedirect("backProcess/departments.jsp");
                 }
             }
+            response.sendRedirect("backProcess/departments.jsp");
+            //   request.getRequestDispatcher("backProcess/departments.jsp").forward(request,response);
+        }else if(entityType.equals("task")){
+            String []staffIds=request.getParameterValues("staff");
+            DatabaseStaffTask databaseStaffTask=new DatabaseStaffTask();
+            Staff staff=new Staff();
+            Task task=new Task(request.getParameter("sectionTask"),null,null,null,null);
+            if(staffIds!=null){
+                for(int i=0;i<staffIds.length;i++){
+                    staff.setStaffId(staffIds[i]);
+                    databaseStaffTask.deleteStaffToTask(staff,task);
+                }
+            }
+            response.sendRedirect("backProcess/tasks.jsp");
+        }else if(entityType.equals("project")){
+            String []staffIds=request.getParameterValues("staff");
+            System.out.println(request.getParameter("sectionProject"));
+            DatabaseStaffProject databaseStaffProject=new DatabaseStaffProject();
+            Staff staff=new Staff();
+            Project project=new Project(request.getParameter("sectionProject"),null,null,null);
+            if(staffIds!=null){
+                for(int i=0;i<staffIds.length;i++){
+                    staff.setStaffId(staffIds[i]);
+                    databaseStaffProject.deleteStaffToProject(staff,project) ;
+                }
+            }
+            response.sendRedirect("backProcess/projects.jsp");
         }
+
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

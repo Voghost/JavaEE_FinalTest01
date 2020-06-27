@@ -73,8 +73,8 @@
         <!-- SubPopup -->
 
         <div id="BtmBtn">
-            <div class="btn_box floatR mag_l20"><input name="" type="submit" value="确定"</div>
-            <div class="btn_boxB floatR"><input name="" type="reset" value="取消"</div>
+            <div class="btn_box floatR mag_l20"><input name="" type="submit" value="确定"></div>
+            <div class="btn_boxB floatR"><input name="" type="reset" value="取消"></div>
         </div>
 
     </form>

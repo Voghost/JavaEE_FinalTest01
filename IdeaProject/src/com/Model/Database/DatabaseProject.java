@@ -21,8 +21,8 @@ public class DatabaseProject {
     //插入数据
     public int insertProject(Project project) {
         String maxProjectId = "F0000001";
-        String sqlSearch = "SELECT MAX(ProjectId) AS maxID FROM Project";
-        String sqlInsert = "INSERT INTO Project(ProjectId,ProjectName,ProjectPathId,ProjectRemark) VALUES(?,?,?,?)";
+        String sqlSearch = "SELECT MAX(ProjectId) AS maxID FROM project";
+        String sqlInsert = "INSERT INTO project(ProjectId,ProjectName,ProjectPathId,ProjectRemark) VALUES(?,?,?,?)";
 
         try {
             connection = dataSource.getConnection();
@@ -47,6 +47,8 @@ public class DatabaseProject {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.toString());
+        }finally {
+            closeProcess(connection,resultSet,preparedStatement);
         }
         return 1;
     }
@@ -89,7 +91,7 @@ public class DatabaseProject {
     public int deleteProject(Project project){
         try{
             connection=dataSource.getConnection();
-            preparedStatement=connection.prepareStatement("delete from Project where ProjectId=?");
+            preparedStatement=connection.prepareStatement("delete from project where ProjectId=?");
             preparedStatement.setString(1,project.getProjectId());
             preparedStatement.executeUpdate();
         }catch(SQLException e){

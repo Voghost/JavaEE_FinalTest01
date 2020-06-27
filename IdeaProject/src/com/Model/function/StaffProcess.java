@@ -1,10 +1,7 @@
 package com.Model.function;
 
-import com.Model.Database.DatabaseStaff;
-import com.Model.Database.DatabaseStaffDepartment;
-import com.Model.Entity.Department;
-import com.Model.Entity.Staff;
-import com.Model.Entity.StaffDepartment;
+import com.Model.Database.*;
+import com.Model.Entity.*;
 
 import java.util.ArrayList;
 
@@ -38,6 +35,26 @@ public class StaffProcess {
             return -1;
         }
         return staffDepartments.size();
+    }
+
+    //获得某个员工涉及的任务数量
+    public int getNumOfTask(Staff staff){
+        DatabaseStaffTask databaseStaffTask=new DatabaseStaffTask();
+        ArrayList<StaffTask> staffTasks=databaseStaffTask.searchStaffOrTask(staff,new Task(null,null,null,null,null));
+        if(staffTasks==null){
+            return -1;
+        }
+        return staffTasks.size();
+    }
+
+    //获得员工的涉及的项目数量
+    public int getNumOfProject(Staff staff){
+        DatabaseStaffProject databaseProjec=new DatabaseStaffProject();
+        ArrayList<StaffProject> staffProjects=databaseProjec.searchStaffOrProject(staff,new Project(null,null,null,null));
+        if(staffProjects==null){
+            return -1;
+        }
+        return staffProjects.size();
     }
 
     //删除员工数据

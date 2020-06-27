@@ -45,7 +45,6 @@
                 <th>序号</th>
                 <th>项目编号</th>
                 <th>项目名称</th>
-                <th>项目文件编号</th>
                 <th>项目描述</th>
                 <th>项目涉及人数</th>
                 <th>管理</th>
@@ -59,17 +58,33 @@
                 <td><%out.println(i+1);%></td>
                 <td><%out.println(projects.get(i).getProjectId());%></td>
                 <td><%out.println(projects.get(i).getProjectName());%></td>
-                <td><%out.println(projects.get(i).getProjectPathId());%></td>
                 <td><%out.println(projects.get(i).getProjectRemark());%></td>
                 <td><%out.println(projectProcess.getNumOfProject(projects.get(i)));%></td>
-                <form action="../deleteEntityServlet" method="post">
-                    <input type="hidden" name="entityType" value="project"/>
-                    <input type="hidden" name="deleteSection" value="<%out.print(projects.get(i).getProjectId());%>"/>
-                    <td><input type="submit" value="删除" onClick="return confirm('删除后将无法恢复,确定要删除?')" ></td>
-                </form>
+                <td>
+                    <form action="../deleteEntityServlet" method="post">
+                        <input type="hidden" name="entityType" value="project"/>
+                        <input type="hidden" name="deleteSection"
+                               value="<%out.print(projects.get(i).getProjectId());%>"/>
+                        <div class="btn_box floatR mag_l20">
+                            <input type="submit" value="删除项目" onClick="return confirm('删除后将无法恢复,确定要删除?')">
+                        </div>
+                    </form>
+                    <form action="insertProjectStaff.jsp" method="post">
+                        <input type="hidden" name="sectionProject" value="<%out.print(projects.get(i).getProjectId());%>"/>
 
-            </tr>
-            <%
+                        <div class="btn_boxB floatR">
+                            <input type="submit" value="添加员工">
+                        </div>
+                    </form>
+                    <form action="deleteProjectStaff.jsp" method="post">
+                        <input type="hidden" name="sectionProject" value="<%out.print(projects.get(i).getProjectId());%>"/>
+
+                        <div class="btn_boxB floatR">
+                            <input type="submit" value="删除员工">
+                        </div>
+                    </form>
+                </td>
+                    <%
                 }
             %>
         </table>

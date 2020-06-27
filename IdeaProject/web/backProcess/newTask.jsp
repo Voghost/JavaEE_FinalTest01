@@ -90,8 +90,9 @@
                     <tr>
                         <th>截止时间 <span class="f_cB">*</span></th>
                         <td>
-                            <div class="txtbox floatL" style="width:700px;">
-                                <input name="TaskEndDate" type="text" size="95" placeholder="截止时间">
+                            <div class="txtbox floatL" style="width:200px;">
+                                <input name="TaskEndDate" type="date" />
+<%--                                <input name="TaskEndDate" type="text" size="95" placeholder="截止时间">--%>
                             </div>
                         </td>
 

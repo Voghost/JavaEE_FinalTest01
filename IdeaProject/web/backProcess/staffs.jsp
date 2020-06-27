@@ -1,6 +1,7 @@
 <%@ page import="com.Model.Entity.Staff" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.Model.function.StaffProcess" %>
+<%@ page import="com.Model.function.TaskProcess" %>
 <%--
   Created by IntelliJ IDEA.
   User: voghost
@@ -44,8 +45,9 @@
                 <th>员工编号</th>
                 <th>员工姓名</th>
                 <th>员工电话</th>
-                <th>员工所属部门数量</th>
-                <th>管理</th>
+                <th>项目数量</th>
+                <th>任务数量</th>
+                <th></th>
             </tr>
 
             <%
@@ -57,12 +59,19 @@
                 <td><%out.println(staffs.get(i).getStaffId());%></td>
                 <td><%out.println(staffs.get(i).getStaffName());%></td>
                 <td><%out.println(staffs.get(i).getStaffPhone());%></td>
-                <td><%out.println(staffProcess.getNumOfDepartment(staffs.get(i)));%></td>
-                <form action="../deleteEntityServlet" method="post">
-                    <input type="hidden" name="entityType" value="staff"/>
-                    <input type="hidden" name="deleteSection" value="<%out.print(staffs.get(i).getStaffId());%>"/>
-                    <td><input type="submit" value="删除" onClick="return confirm('删除后将无法恢复,确定要删除?')" ></td>
-                </form>
+                <td><%out.println(staffProcess.getNumOfProject(staffs.get(i)));%></td>
+                <td><%out.println(staffProcess.getNumOfTask(staffs.get(i)));%></td>
+                <td>
+                    <form action="../deleteEntityServlet" method="post">
+                        <input type="hidden" name="entityType" value="staff"/>
+                        <input type="hidden" name="deleteSection"
+                               value="<%out.print(staffs.get(i).getStaffId());%>"/>
+                        <div class="btn_box floatR mag_l20">
+                            <input type="submit" value="删除员工" onClick="return confirm('删除后将无法恢复,确定要删除?')">
+                        </div>
+                    </form>
+
+                </td>
             </tr>
             <%
                 }

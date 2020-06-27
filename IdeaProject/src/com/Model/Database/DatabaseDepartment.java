@@ -46,6 +46,8 @@ public class DatabaseDepartment {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.toString());
+        }finally {
+            closeProcess(connection,resultSet,preparedStatement);
         }
         return 1;
     }
@@ -88,6 +90,8 @@ public class DatabaseDepartment {
             System.out.println(e.toString());
             return 0;
 
+        }finally {
+            closeProcess(connection,resultSet,preparedStatement);
         }
         return 1;
     }

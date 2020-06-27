@@ -28,12 +28,13 @@ public class DatabaseTask {
     //插入数据
     public int insertTask(Task task) {
         String maxTaskId = "T00000001";
-        String sqlSearch = "SELECT MAX(TaskId) AS maxID FROM Task";
-        String sqlInsert = "INSERT INTO Task(TaskId,TaskName,TaskRemark,TaskStartDate,TaskEndDate) VALUES(?,?,?,?,?)";
+        String sqlSearch = "SELECT MAX(TaskId) AS maxID FROM task";
+        String sqlInsert = "INSERT INTO task(TaskId,TaskName,TaskRemark,TaskStartDate,TaskEndDate) VALUES(?,?,?,?,?)";
         try {
             connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement(sqlSearch);
             resultSet = preparedStatement.executeQuery();
+            System.out.println("测试"+task.toString()); //test===============
             if (resultSet.next()) {
 
                 maxTaskId = resultSet.getString("maxId");
@@ -46,6 +47,7 @@ public class DatabaseTask {
                 }
             }
             SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
+
 
             preparedStatement = connection.prepareStatement(sqlInsert);
             preparedStatement.setString(1, maxTaskId);
@@ -62,6 +64,8 @@ public class DatabaseTask {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.toString());
+        }finally {
+            closeProcess(connection,resultSet,preparedStatement);
         }
         return 1;
     }
@@ -125,7 +129,7 @@ public class DatabaseTask {
     public int deleteTask(Task task) {
         try {
             connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement("delete from Task where TaskId=?");
+            preparedStatement = connection.prepareStatement("delete from task where TaskId=?");
             preparedStatement.setString(1, task.getTaskId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

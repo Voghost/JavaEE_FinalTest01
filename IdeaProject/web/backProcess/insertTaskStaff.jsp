@@ -1,11 +1,13 @@
 <%@ page import="com.Model.Entity.Department" %>
 <%@ page import="com.Model.Database.DatabaseStaffDepartment" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="com.Model.Entity.Staff" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="com.Model.Entity.Task" %>
+<%@ page import="com.Model.Database.DatabaseStaffTask" %><%--
   Created by IntelliJ IDEA.
   User: voghost
   Date: 2020/6/26
-  Time: 下午8:42
+  Time: 下午5:07
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -29,14 +31,13 @@
     <![endif]-->
 </head>
 
-
 <body>
 <!-- Popup -->
 <div id="Popup">
 
 
-    <form action="../deleteConnectionToStaffServlet" method="post">
-        <input type="hidden" name="entityType" value="department">
+    <form action="../newConnectionToStaffServlet" method="post">
+        <input type="hidden" name="entityType" value="task">
         <!-- SubPopup -->
         <div id="SubPopup">
             <div class="form_boxD">
@@ -50,16 +51,17 @@
 
                     <%
 
-                        Department department = new Department();
-                        department.setDepartmentId(request.getParameter("sectionDepartment"));
-                        DatabaseStaffDepartment databaseStaffDepartment = new DatabaseStaffDepartment();
-                        ArrayList<Staff> staffs = databaseStaffDepartment.searchStaffInDepartment(department);
+                        Task task=new Task();
+                        task.setTaskId(request.getParameter("sectionTask"));
+
+                        DatabaseStaffTask databaseStaffTask=new DatabaseStaffTask();
+                        ArrayList<Staff> staffs = databaseStaffTask.searchStaffNoInDepartment(task);
                         for (int i = 0; i < staffs.size(); i++) {
                     %>
                     <tr>
                         <th>
                             <input name="staff" type="checkbox" value="<%out.print(staffs.get(i).getStaffId());%>">
-                            <input type="hidden" name="sectionDepartment" value="<% out.print(department.getDepartmentId());%>">
+                            <input type="hidden" name="sectionTask" value="<% out.print(task.getTaskId());%>">
                         </th>
                         <th><%out.print(staffs.get(i).getStaffId());%></th>
                         <td><%out.print(staffs.get(i).getStaffName());%></td>

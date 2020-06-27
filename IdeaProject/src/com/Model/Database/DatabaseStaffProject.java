@@ -98,6 +98,78 @@ public class DatabaseStaffProject {
         }
         return staffProjects;
     }
+    //查找(不在项目里的员工)
+    public ArrayList<Staff>  searchStaffNoInProject(Project project){
+        ArrayList<Staff> staffs=new ArrayList<Staff>();
+        try{
+            String sql="SELECT * FROM staff WHERE StaffId NOT IN(SELECT StaffId FROM staff_project WHERE ProjectId=? )";
+            connection=dataSource.getConnection();
+            preparedStatement=connection.prepareStatement(sql);
+            preparedStatement.setString(1,project.getProjectId());
+            resultSet=preparedStatement.executeQuery();
+            int countOfResult=0;
+
+            while(resultSet.next()){
+                Staff newStaff=new Staff();
+                newStaff.setStaffId(resultSet.getString(1));
+                newStaff.setStaffName(resultSet.getString(2));
+                newStaff.setStaffPhone(resultSet.getString(3));
+                newStaff.setStaffFileID(resultSet.getString(4));
+                newStaff.setStaffPassword(resultSet.getString(5));
+                staffs.add(newStaff);
+                countOfResult++;
+            }
+            if(countOfResult==0){
+                return new ArrayList<Staff>();
+            }
+
+
+
+        }catch (SQLException e){
+            System.out.println(e.toString());
+            return  null;
+        }finally {
+            closeProcess(connection,resultSet,preparedStatement);
+        }
+        return staffs;
+    }
+
+    //查找(在项目里的员工)
+
+    public ArrayList<Staff>  searchStaffInProject(Project project){
+        ArrayList<Staff> staffs=new ArrayList<Staff>();
+        try{
+            String sql="SELECT * FROM staff WHERE StaffId IN(SELECT StaffId FROM staff_project WHERE ProjectId=? )";
+            connection=dataSource.getConnection();
+            preparedStatement=connection.prepareStatement(sql);
+            preparedStatement.setString(1,project.getProjectId());
+            resultSet=preparedStatement.executeQuery();
+            int countOfResult=0;
+
+            while(resultSet.next()){
+                Staff newStaff=new Staff();
+                newStaff.setStaffId(resultSet.getString(1));
+                newStaff.setStaffName(resultSet.getString(2));
+                newStaff.setStaffPhone(resultSet.getString(3));
+                newStaff.setStaffFileID(resultSet.getString(4));
+                newStaff.setStaffPassword(resultSet.getString(5));
+                staffs.add(newStaff);
+                countOfResult++;
+            }
+            if(countOfResult==0){
+                return new ArrayList<Staff>();
+            }
+
+
+
+        }catch (SQLException e){
+            System.out.println(e.toString());
+            return  null;
+        }finally {
+            closeProcess(connection,resultSet,preparedStatement);
+        }
+        return staffs;
+    }
 
     //包装了关闭函数，用于关闭数据库相关的连接
     public int closeProcess(Connection connection, ResultSet resultSet, PreparedStatement preparedStatement) {
