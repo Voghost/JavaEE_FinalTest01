@@ -51,7 +51,6 @@
                 <th>序号</th>
                 <th>文件夹编号</th>
                 <th>文件夹路径</th>
-                <th>文件夹描述</th>
             </tr>
 
             <%
@@ -62,14 +61,7 @@
                 <td><%out.println(i+1);%></td>
                 <td><%out.println(folders.get(i).getFolderId());%></td>
                 <td><%out.println(folders.get(i).getFolderPath());%></td>
-                <td><%out.println(folders.get(i).getFolderRemark());%></td>
-                <form action="../deleteEntityServlet" method="post">
-                    <input type="hidden" name="entityType" value="folder"/>
-                    <input type="hidden" name="deleteSection" value="<%out.print(folders.get(i).getFolderId());%>"/>
-                    <div class="btn_boxB floatR">
-                    <td><input type="submit" value="删除" onClick="return confirm('删除后将无法恢复,确定要删除?')" ></td>
-                    </div>
-                </form>
+                <td>   </td>
             </tr>
             <%
                 }

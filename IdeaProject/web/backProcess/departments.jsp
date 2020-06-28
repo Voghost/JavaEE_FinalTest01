@@ -86,7 +86,7 @@
                         <input type="hidden" name="sectionDepartment" value="<%out.print(departments.get(i).getDepartmentId());%>"/>
 
                         <div class="btn_boxB floatR">
-                            <input type="submit" value="删除员工">
+                            <input type="submit" value="查看员工">
                         </div>
                     </form>
                 </td>

@@ -86,7 +86,7 @@ public class DatabaseFolder {
     public int deleteFolder(Folder folder){
         try{
             connection=dataSource.getConnection();
-            preparedStatement=connection.prepareStatement("delete from Folder where folderId=?");
+            preparedStatement=connection.prepareStatement("delete from folder where folderId=?");
             preparedStatement.setString(1,folder.getFolderId());
             preparedStatement.executeUpdate();
         }catch(SQLException e){

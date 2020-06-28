@@ -75,25 +75,25 @@
                 <td><%out.print(folders.get(0).getFolderId());%></td>
                 <td><%out.print(folders.get(0).getFolderPath());%></td>
             </tr>
-            <tr>
-                <td>公共项目文件夹</td>
                 <%
                     for (int i = 0; (i < projects.size())&&(projects.get(i).getProjectPathId()!=null); i++) {
                         folder=databaseFolder.searchFolder(projects.get(i).getProjectPathId());
 
                 %>
+            <tr>
+                <td>公共项目文件夹</td>
                 <td><%out.print(folder.getFolderId());%></td>
                 <td><%out.print(folder.getFolderPath());%></td>
+            </tr>
                 <%
                 }
             %>
-            </tr>
 
             <tr>
 
             </tr>
         </table>
-        <p class="msg">共找到<%out.println(folders.size()-1);%>条记录</p>
+        <p class="msg">共找到<%out.println(projects.size()+1);%>条记录</p>
     </div>
 </div>
 
