@@ -64,7 +64,7 @@ public class DatabaseStaffTask {
             if (staff.getStaffId() == null && task == null) {
                 return new ArrayList<StaffTask>();
             } else if (staff.getStaffId() != null && task.getTaskId() == null) {
-                preparedStatement = connection.prepareStatement("SELECT * FROM staff_task WHERE TaskId=?");
+                preparedStatement = connection.prepareStatement("SELECT * FROM staff_task WHERE StaffId=?");
                 preparedStatement.setString(1, staff.getStaffId());
             } else if (staff.getStaffId() == null && task.getTaskId() != null) {
                 preparedStatement = connection.prepareStatement("SELECT * FROM staff_task WHERE TaskId=?");
@@ -74,7 +74,6 @@ public class DatabaseStaffTask {
                 preparedStatement.setString(1, staff.getStaffId());
                 preparedStatement.setString(2, task.getTaskId());
             }
-
             resultSet = preparedStatement.executeQuery();
             int countOfResult = 0;
 

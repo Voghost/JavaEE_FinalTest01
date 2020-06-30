@@ -56,7 +56,6 @@
                 <th>任务开始时间</th>
                 <th>任务截止时间</th>
                 <th>任务涉及人数</th>
-                <th>管理</th>
             </tr>
 
             <%
@@ -72,14 +71,6 @@
                 <td><%out.println(tasks.get(i).getTaskEndDate());%></td>
                 <td><%out.println(taskProcess.getNumOfTask(tasks.get(i)));%></td>
                 <td>
-                    <form action="../deleteEntityServlet" method="post">
-                        <input type="hidden" name="entityType" value="task"/>
-                        <input type="hidden" name="deleteSection"
-                               value="<%out.print(tasks.get(i).getTaskId());%>"/>
-                        <div class="btn_box floatR mag_l20">
-                            <input type="submit" value="删除任务" onClick="return confirm('删除后将无法恢复,确定要删除?')">
-                        </div>
-                    </form>
                     <form action="insertTaskStaff.jsp" method="post">
                         <input type="hidden" name="sectionTask" value="<%out.print(tasks.get(i).getTaskId());%>"/>
 
@@ -95,6 +86,17 @@
                         </div>
                     </form>
                 </td>
+                <td>
+                    <form action="../deleteEntityServlet" method="post">
+                        <input type="hidden" name="entityType" value="task"/>
+                        <input type="hidden" name="deleteSection"
+                               value="<%out.print(tasks.get(i).getTaskId());%>"/>
+                        <div class="btn_box floatR mag_l20">
+                            <input type="submit" value="删除任务" onClick="return confirm('删除后将无法恢复,确定要删除?')">
+                        </div>
+                    </form>
+                </td>
+                <td>  </td>
 
             </tr>
             <%

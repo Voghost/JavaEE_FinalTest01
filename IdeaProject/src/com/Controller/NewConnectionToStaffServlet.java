@@ -58,7 +58,6 @@ public class NewConnectionToStaffServlet extends HttpServlet {
             //如果是项目
         }else if(entityType.equals("project")){
             String []staffIds=request.getParameterValues("staff");
-            System.out.println(request.getParameter("sectionProject"));
             DatabaseStaffProject databaseStaffProject=new DatabaseStaffProject();
             Staff staff=new Staff();
             Project project=new Project(request.getParameter("sectionProject"),null,null,null);
