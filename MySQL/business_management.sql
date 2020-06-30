@@ -35,8 +35,8 @@ CREATE TABLE `department` (
 DROP TABLE IF EXISTS `folder`;
 CREATE TABLE `folder` (
   `FolderId` char(9) NOT NULL,
-  `FolderPath` varchar(30) DEFAULT NULL,
-  `FolderRemark` varchar(45) DEFAULT NULL,
+  `FolderPath` varchar(60) DEFAULT NULL,
+  `FolderRemark` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`FolderId`),
   CONSTRAINT `folder_chk_1` CHECK (regexp_like(`FolderId`,_utf8mb4'F[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -47,9 +47,9 @@ CREATE TABLE `folder` (
 DROP TABLE IF EXISTS `project`;
 CREATE TABLE `project` (
   `ProjectId` char(9) NOT NULL,
-  `ProjectName` varchar(30) DEFAULT NULL,
+  `ProjectName` varchar(60) DEFAULT NULL,
   `ProjectPathId` char(9) DEFAULT NULL,
-  `ProjectRemark` varchar(45) DEFAULT NULL,
+  `ProjectRemark` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ProjectId`),
   KEY `FK_Project_FileId` (`ProjectPathId`),
   CONSTRAINT `FK_Project_FileId` FOREIGN KEY (`ProjectPathId`) REFERENCES `folder` (`FolderId`),
@@ -66,7 +66,7 @@ CREATE TABLE `staff` (
   `StaffName` varchar(40) DEFAULT NULL,
   `StaffPhone` varchar(15) DEFAULT NULL,
   `StafFileId` char(9) DEFAULT NULL,
-  `StaffPassword` varchar(15) NOT NULL,
+  `StaffPassword` varchar(30) NOT NULL,
   PRIMARY KEY (`StaffId`),
   KEY `FK_Staff_FileId` (`StafFileId`),
   CONSTRAINT `FK_Staff_FileId` FOREIGN KEY (`StafFileId`) REFERENCES `folder` (`FolderId`),
@@ -121,8 +121,8 @@ CREATE TABLE `staff_task` (
 DROP TABLE IF EXISTS `task`;
 CREATE TABLE `task` (
   `TaskId` char(9) NOT NULL,
-  `TaskName` varchar(30) DEFAULT NULL,
-  `TaskRemark` varchar(45) DEFAULT NULL,
+  `TaskName` varchar(60) DEFAULT NULL,
+  `TaskRemark` varchar(100) DEFAULT NULL,
   `TaskStartDate` date DEFAULT NULL,
   `TaskEndDate` date DEFAULT NULL,
   PRIMARY KEY (`TaskId`),
